@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.ui-calendar {margin:50px 0;border-radius: 10px 10px 10px 10px;box-shadow: 2px 2px 20px 0; background-color:#FFF; position:relative;}
+	        .ui-calendar caption,.ui-calendar th,.ui-calendar-cell-current a {background: url(images/sprite-calendar.png) repeat-x;}
+	        .ui-calendar caption { height:26px; padding-top: 6px; text-align:left; font-family:Simsun; background-position: 0 -30px; border: 1px solid #861e1b;}
+	        .ui-calendar caption a{ display:inline-block; margin:0 3px; padding: 0 2px; background-repeat: no-repeat; color: #FFF;}
+	        .ui-calendar-selected-date,.ui-calendar-select {background-color:rgba(34,34,34,0.3);border-radius: 10px 10px 10px 10px;}
+	        .ui-calendar-selected-date {  display:inline-block; padding:2px 10px; color:#FFF; position:relative; z-index:2;}
+	        .ui-calendar-select {position: absolute; width: 104px; left: 51px; background-color:rgba(0,0,0,0.8); z-index:1;top:7px;display:none; padding:25px 0 10px 0;}
+	        .ui-calendar-select li a{ height:25px; line-height:25px;text-align:center; display:block;color:#FFF; margin:0;}
+	        .ui-calendar-select li a:hover{background-color:#222;}
+	        .ui-calendar a {text-decoration:none;color:#4d4d4d;}
+	        .ui-calendar th {color:#707687; height: 26px; background-position: 0 0;}
+	        .ui-calendar th,.ui-calendar td {text-align:center;}
+	        .ui-calendar th,.ui-calendar td {width:30px; height:30px; line-height:30px;}
+	        .ui-calendar td a {display:block;}
+	        .ui-calendar-cell-disabled {color:#c0c0c0;}
+	        .ui-calendar-cell-current a{border-radius: 8px 8px 8px 8px; font-weight: bold;margin: 0 auto;background-position:20px -104px;background-repeat: no-repeat;width:28px; height:28px; color:#EA5454;}
+	    
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;" id="toolbar">
+			<h1 class="mui-title">卉卉打卡</h1>
+			<h1 class="mui-pull-left mui-btn-link" id="today_num"></h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link today">回到今天</button>
+		</header>
+		<div class="mui-content">
+			<div id="container">
+				<h5 class="mui-content-padded" style="margin: 15px 10px;text-align: right;">&nbsp;</h5>
+				<div class="wrapper" id="wrapper">
+					<div class="date_row date_week">
+				        <div class="date_item">周日</div>
+				        <div class="date_item">周一</div>
+				        <div class="date_item">周二</div>
+				        <div class="date_item">周三</div>
+				        <div class="date_item">周四</div>
+				        <div class="date_item">周五</div>
+				        <div class="date_item">周六</div>
+				    </div>
+				    
+				    <div class="slide_wrap">
+				    	<div class="date_slide"> 
+				            <div class="date_list" id="date_list_0">
+				            </div><!--date_list-->
+				            
+				            <div class="date_list" id="date_list_1">
+				            </div><!--date_list-->
+				        </div>
+				    </div>
+				    
+				   <!-- <div class="date_info">
+				        <div class="date_lunar_info"></div>
+				        <div class="date_fetv"></div>
+				        <div class="date_gan_zhi"></div>
+				        
+				        <div class="date_hl">
+				            <div class="date_hl_item">
+				                <div class="hl_y circle">宜</div>
+				                <span class="hl_y_content"></span>
+				            </div>
+				            
+				            <div class="date_hl_item">
+				                <div class="hl_j circle">忌</div>
+				                <span class="hl_j_content"></span>
+				            </div>
+				        </div>
+				    </div>-->
+				    	
+				    <!--date_info-->
+				</div>
+	    	</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript" src="js/zepto.min.js"></script>
+		<script type="text/javascript" src="js/hammer.min.js"></script>
+		<script type="text/javascript" src="js/jquery.hammer.min.js"></script>
+		<script type="text/javascript" src="js/LunarCalendar.min.js"></script>
+		<script type="text/javascript" src="js/calendar.js"></script>
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var menu = null,
+				main = null;
+			var showMenu = false;
+			mui.init({
+				swipeBack: false,
+				statusBarBackground: '#f7f7f7',
+				gestureConfig: {
+					doubletap: true
+				},
+			});
+			mui.plusReady(function() {
+				
+				//初始化数据库
+				initialize();
+				
+				//仅支持竖屏显示
+				plus.screen.lockOrientation("portrait-primary");
+				main = plus.webview.currentWebview();
+				main.addEventListener('maskClick', closeMenu);
+				//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
+				setTimeout(function() {
+					menu = mui.preload({
+						id: 'index-menu',
+						url: 'index-menu.html',
+						styles: {
+							left: 0,
+							width: '70%',
+							zindex: -1
+						},
+						show: {
+							aniShow: 'none'
+						}
+					});
+				}, 200);
+			});
+			var isInTransition = false;
+			/**
+			 * 显示侧滑菜单
+			 */
+			function openMenu() {
+				if (isInTransition) {
+					return;
+				}
+				if (!showMenu) {
+					//侧滑菜单处于隐藏状态，则立即显示出来；
+					isInTransition = true;
+					menu.setStyle({
+						mask: 'rgba(0,0,0,0)'
+					}); //menu设置透明遮罩防止点击
+					menu.show('none', 0, function() {
+						//主窗体开始侧滑并显示遮罩
+						main.setStyle({
+							mask: 'rgba(0,0,0,0.4)',
+							left: '70%',
+							transition: {
+								duration: 150
+							}
+						});
+						mui.later(function() {
+							isInTransition = false;
+							menu.setStyle({
+								mask: "none"
+							}); //移除menu的mask
+						}, 160);
+						showMenu = true;
+					});
+				}
+			};
+			/**
+			 * 关闭菜单
+			 */
+			function closeMenu() {
+				if (isInTransition) {
+					return;
+				}
+				if (showMenu) {
+					//关闭遮罩；
+					//主窗体开始侧滑；
+					isInTransition = true;
+					main.setStyle({
+						mask: 'none',
+						left: '0',
+						transition: {
+							duration: 200
+						}
+					});
+					showMenu = false;
+					//等动画结束后，隐藏菜单webview，节省资源；
+					mui.later(function() {
+						isInTransition = false;
+						menu.hide();
+					}, 300);
+				}
+			};
+			//点击左上角侧滑图标，打开侧滑菜单；
+			document.querySelector('.mui-bar-nav').addEventListener('tap', function(e) {
+				if (showMenu) {
+					closeMenu();
+				} else {
+					openMenu();
+				}
+			});
+			//敲击顶部导航，内容区回到顶部
+			document.querySelector('header').addEventListener('doubletap', function() {
+				main.children()[0].evalJS('mui.scrollTo(0, 100)');
+			});
+			//主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作
+			window.addEventListener("swiperight", openMenu);
+			//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
+			window.addEventListener("swipeleft", closeMenu);
+			//侧滑菜单触发关闭菜单命令
+			window.addEventListener("menu:close", closeMenu);
+			window.addEventListener("menu:open", openMenu);
+			//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+			mui.menu = function() {
+					if (showMenu) {
+						closeMenu();
+					} else {
+						openMenu();
+					}
+				}
+				//处理右上角关于图标的点击事件；
+			var subWebview = null,
+				template = null;
+			//首页返回键处理
+			//处理逻辑：1秒内，连续两次按返回键，则退出应用；
+			var first = null;
+			mui.back = function() {
+				if (showMenu) {
+					closeMenu();
+				} else {
+					//首次按键，提示‘再按一次退出应用’
+					if (!first) {
+						first = new Date().getTime();
+						mui.toast('再按一次退出应用');
+						setTimeout(function() {
+							first = null;
+						}, 1000);
+					} else {
+						if (new Date().getTime() - first < 1000) {
+							plus.runtime.quit();
+						}
+					}
+				}
+			};
+		</script>
+	</body>
+
+</html>
