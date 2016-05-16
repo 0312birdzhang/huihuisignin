@@ -1,5 +1,6 @@
 window.HuangLi = window.HuangLi || {};
 
+
 (function () {
     var mobile = {
         platform: '',
