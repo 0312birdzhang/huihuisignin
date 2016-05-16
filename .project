@@ -10,8 +10,13 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.pandora.projects.ui.MKeyBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.aptana.projects.webnature</nature>
+		<nature>com.pandora.projects.ui.MKeyNature</nature>
 	</natures>
 </projectDescription>
