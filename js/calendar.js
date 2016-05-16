@@ -209,6 +209,9 @@ var Calendar = (function(){
 		
 		//拉取黄历
 		//getHL();
+		
+		//填充事项
+		fillEvents(formatDate());
 	};
 	
 	//恢复指定日期的状态信息
@@ -396,6 +399,11 @@ var Calendar = (function(){
 		setCurrentByNow();
 		showDate();
 	};
+	
+	
+	function fillEvents(day){
+		
+	}
 	
 	return {
 		init : init
