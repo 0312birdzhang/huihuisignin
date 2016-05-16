@@ -139,13 +139,16 @@
 			});
 			mui('.mui-content .mui-switch').each(function() { //循环所有toggle
 				//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
-				this.parentNode.querySelector('span').innerText = '状态：' + (this.classList.contains('mui-active') ? 'true' : 'false');
+				//this.parentNode.querySelector('span').innerText = '状态：' + (this.classList.contains('mui-active') ? 'true' : 'false');
 				/**
 				 * toggle 事件监听
 				 */
 				this.addEventListener('toggle', function(event) {
+					
+					//开关事件入口
+					
 					//event.detail.isActive 可直接获取当前状态
-					this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
+					//this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
 				});
 			});
 			mui.plusReady(function() {
