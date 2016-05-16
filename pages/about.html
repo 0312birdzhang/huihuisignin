@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>关于</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<style>
+			p {
+				text-indent: 22px;
+				padding: 5px 8px;
+			}
+			
+			html,
+			body,
+			.mui-content {
+				background-color: #fff;
+			}
+			
+			h4 {
+				margin-left: 5px;
+			}
+			
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">关于</h1>
+		</header>
+		
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<!--<h4 style="margin-top:10px;">mui</h4>-->
+				<p>卉卉打卡是一款小巧简单的打卡软件，记录你的日常事项有没有做完。制作的初衷是给卉卉女神做一个记录
+					跑步看书等小事的软件。
+				</p>	
+				<p>第一版采用跨平台的Qt编写，也方便移植到Windows、iOS、Linux等系统，但由于Qml界面渲染
+					的不太美观，现在的版本采用<a href="http://www.dcloud.io/mui.html">mui</a>框架编写，日历展示用到了
+					<a href="https://github.com/zzyss86/LunarCalendar">小推万年历</a>。<br />
+					旧版源码地址 <a href="http://github.com/0312birdzhang/huisignin">huisignin</a>,
+					当前版本源码地址 <a href="http://github.com/0312birdzhang/huihuisignin">huihuisignin</a>
+				</p>
+				<p>如果你觉得本软件对你的生活或者工作有一些帮助，请在下载的商店里评价一下，或者推荐给你的亲朋好友。你的支持，
+					是我最大的动力^_^
+				</p>
+				<p style="text-align: center;color: #ccc;text-indent: 0;">当前版本：<span id="version">1.0.0</span></p>	
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			//处理点击事件，需要打开原生浏览器
+			mui('body').on('tap', 'a', function(e) {
+				var href = this.getAttribute('href');
+				if (href) {
+					if (window.plus) {
+						plus.runtime.openURL(href);
+					} else {
+						location.href = href;
+					}
+				}
+			});
+
+
+		</script>
+	</body>
+
+</html>
