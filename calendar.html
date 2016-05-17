@@ -8,10 +8,7 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<style>
-			ul {
-				font-size: 14px;
-				color: #8f8f94;
-			}
+	
 			.mui-btn {
 				padding: 10px;
 			}
@@ -64,15 +61,16 @@
 				            </div><!--date_list-->
 				        </div>
 				    </div>
-				    <h5 class="mui-content" style="margin: 15px 10px;text-align: right;">打卡内容</h5>
-			    	<ul class="mui-table-view">
+				    <h5 class="mui-content" style="margin: 15px 12px;text-align: right;">打卡内容</h5>
+			    	<ul class="mui-table-view" id="combo_indexlist">
 						<li class="mui-table-view-cell">
-							<span>123</span>
+							<span>按菜单键进入打卡内容管理进行添加</span>
 							<div class="mui-switch mui-switch-blue mui-switch-mini">
 								<div class="mui-switch-handle"></div>
 							</div>
 						</li>
 					</ul>
+					
 				    <!--date_info-->
 				</div>
 	    	</div>
@@ -102,6 +100,7 @@
 				/**
 				 * toggle 事件监听
 				 */
+				console.log(this.parentNode.querySelector('span').innerText);
 				this.addEventListener('toggle', function(event) {
 					
 					//开关事件入口
@@ -134,6 +133,10 @@
 						}
 					});
 				}, 200);
+				
+				//加载combolist
+				loadCombo();
+				
 			});
 			var isInTransition = false;
 			/**
@@ -192,6 +195,7 @@
 						isInTransition = false;
 						menu.hide();
 					}, 300);
+					loadCombo();
 				}
 			};
 			//点击左上角侧滑图标，打开侧滑菜单；
@@ -207,7 +211,7 @@
 				main.children()[0].evalJS('mui.scrollTo(0, 100)');
 			});
 			//主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作
-			window.addEventListener("swiperight", openMenu);
+			//window.addEventListener("swiperight", openMenu);
 			//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
 			window.addEventListener("swipeleft", closeMenu);
 			//侧滑菜单触发关闭菜单命令
@@ -245,6 +249,33 @@
 					}
 				}
 			};
+			
+			
+			function loadCombo(){
+				//查询数据
+				var db = getDatabase();
+				db.transaction(function(tx){
+			    	tx.executeSql('SELECT * FROM combo', [], function (tx, results) {
+				    var len = results.rows.length;
+				    var htmls = ""
+				    for (i = 0; i < len; i++){
+				    	htmls += '<li class="mui-table-view-cell">'+
+							'<span>'+results.rows.item(i).ctitle+ '</span>'+
+							'<div class="mui-switch mui-switch-blue mui-switch-mini">'+
+								'<div class="mui-switch-handle"></div>'+
+							'</div>'+
+						'</li>';
+						
+					}
+				    if(len == 0){
+				    	htmls = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
+				    }
+				    document.getElementById("combo_indexlist").innerHTML = htmls;
+				    
+					});
+				
+			    })
+			}
 		</script>
 	</body>
 
