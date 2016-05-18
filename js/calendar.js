@@ -226,6 +226,7 @@ var Calendar = (function(){
 		}
 	};
 	
+	
 	function showDate(){
 		DATA = LunarCalendar.calendar(current.year,current.month,true);
 		

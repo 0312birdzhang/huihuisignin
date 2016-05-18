@@ -36,7 +36,7 @@
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;" id="toolbar">
 			<h1 class="mui-title">卉卉打卡</h1>
 			<h1 class="mui-pull-left mui-btn-link" id="today_num"></h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link today">回到今天</button>
+			<button id='return_today' class=" mui-pull-right mui-btn-link today">回到今天</button>
 		</header>
 		<div class="mui-content">
 			<div id="container">
@@ -65,9 +65,9 @@
 			    	<ul class="mui-table-view" id="combo_indexlist">
 						<li class="mui-table-view-cell">
 							<span>按菜单键进入打卡内容管理进行添加</span>
-							<div class="mui-switch mui-switch-blue mui-switch-mini">
+							<!--<div class="mui-switch mui-switch-blue mui-switch-mini">
 								<div class="mui-switch-handle"></div>
-							</div>
+							</div>-->
 						</li>
 					</ul>
 					
@@ -135,7 +135,8 @@
 				}, 200);
 				
 				//加载combolist
-				loadCombo();
+				this.loadCombo();
+				
 				
 			});
 			var isInTransition = false;
@@ -250,7 +251,9 @@
 				}
 			};
 			
-			
+			function quitApp(){
+				plus.runtime.quit();
+			}
 			function loadCombo(){
 				//查询数据
 				var db = getDatabase();
@@ -271,11 +274,56 @@
 				    	htmls = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
 				    }
 				    document.getElementById("combo_indexlist").innerHTML = htmls;
-				    
+				    mui('.mui-content .mui-switch')['switch']();
 					});
 				
 			    })
+				
 			}
+			
+			document.addEventListener('plusready',function(){
+			    checkArguments();
+			    
+			},false);
+			// 判断启动方式
+			function checkArguments(){
+			    console.log("plus.runtime.launcher: "+plus.runtime.launcher);
+			    var args = plus.runtime.arguments;
+			    if(args){
+			        // 处理args参数，如打开新页面等
+			        console.log("args:"+args);
+			    }
+			}
+			// 处理从后台恢复
+			document.addEventListener('newintent',function(){
+			    console.log("addEventListener: newintent");
+			    checkArguments();
+			},false);
+			
+			
+			var backgroundTime = 0;
+	        // 监听从前台切换到后台事件
+		    document.addEventListener("pause",function(){
+		        backgroundTime = Math.round(new Date().getTime()/1000);
+		    }, false );
+		    // 监听从后台切换回前台事件
+		    document.addEventListener("resume",function(){
+		        var nowTime = Math.round(new Date().getTime()/1000);
+		        // 如果程序退出到后台时间超过20秒，则重新要求输入手势密码
+		        if (backgroundTime != 0) {
+		            if (nowTime - backgroundTime > 20) {
+		            	//return_today
+		            	var el = document.getElementById('return_today');
+						mui.trigger(el,'tap');
+//		                if (UserInfo.has_login()) {
+//		                    if (UserInfo.touch_pwd()) {
+//		                                                // 打开手势密码页面
+//		                        openPwdPage();
+//		                    }
+//		                }
+		            }
+		        }
+		    }, false );
 		</script>
 	</body>
 
