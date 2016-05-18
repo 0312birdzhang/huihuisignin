@@ -340,6 +340,8 @@
 		}
 	},
 	"unpackage": [
-		"README.md"
+	  "README.md",
+	  "js/calendar.min.js",
+	  "libs/easymob-webim-sdk/quickstart.md"
 	]
 }
