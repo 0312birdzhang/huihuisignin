@@ -276,6 +276,24 @@
 				
 			    })
 			}
+			
+			document.addEventListener('plusready',function(){
+			    checkArguments();
+			},false);
+			// 判断启动方式
+			function checkArguments(){
+			    console.log("plus.runtime.launcher: "+plus.runtime.launcher);
+			    var args= plus.runtime.arguments;
+			    if(args){
+			        // 处理args参数，如打开新页面等
+			        console.log("args:"+args);
+			    }
+			}
+			// 处理从后台恢复
+			document.addEventListener('newintent',function(){
+			    console.log("addEventListener: newintent");
+			    checkArguments();
+			},false);
 		</script>
 	</body>
 
