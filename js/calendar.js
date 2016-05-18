@@ -201,7 +201,7 @@ var Calendar = (function(){
 		if(currentLunar.term) fetv.push(currentLunar.term);
 		if(currentLunar.lunarFestival) fetv.push(currentLunar.lunarFestival);
 		if(currentLunar.solarFestival) fetv.push(currentLunar.solarFestival.split(' '));
-		$('.mui-content-padded').html(fetv.length>0 ? fetv.join('，') : '&nbsp;');
+		$('#events_day').html(fetv.length>0 ? fetv.join('，') : '&nbsp;');
 		
 		//当前日期
 		if(_this){

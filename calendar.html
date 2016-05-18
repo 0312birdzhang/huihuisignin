@@ -33,14 +33,18 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;" id="toolbar">
-			<h1 class="mui-title">卉卉打卡</h1>
-			<h1 class="mui-pull-left mui-btn-link" id="today_num"></h1>
+		<header class="mui-bar mui-bar-nav" >
+			<a class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
 			<button id='return_today' class=" mui-pull-right mui-btn-link today">回到今天</button>
+			<h1 class="mui-title">卉卉打卡</h1>
 		</header>
 		<div class="mui-content">
 			<div id="container">
-				<h5 class="mui-content-padded" style="margin: 15px 10px;text-align: right;">&nbsp;</h5>
+				<h5 class="mui-content-padded" style="margin: 15px 10px;text-align: right;">
+				<span id="today_num" ></span>&nbsp;
+				<span id="events_day" ></span>
+					
+				</h5>
 				<div class="wrapper" id="wrapper">
 					<div class="date_row date_week">
 				        <div class="date_item">周日</div>
@@ -200,7 +204,7 @@
 				}
 			};
 			//点击左上角侧滑图标，打开侧滑菜单；
-			document.querySelector('.mui-bar-nav').addEventListener('tap', function(e) {
+			document.querySelector('.mui-action-menu').addEventListener('tap', function(e) {
 				if (showMenu) {
 					closeMenu();
 				} else {
@@ -251,9 +255,7 @@
 				}
 			};
 			
-			function quitApp(){
-				plus.runtime.quit();
-			}
+			
 			function loadCombo(){
 				//查询数据
 				var db = getDatabase();
