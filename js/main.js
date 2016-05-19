@@ -13,13 +13,16 @@ function initialize(){
 
 function addCombo(cname, ctitle){
     var db = getDatabase();
-    var res = false;
+    var res = true;
     console.log("outer:"+res)
     db.transaction(function(tx){
-                       tx.executeSql('INSERT OR REPLACE INTO combo VALUES (?,?);',[cname, ctitle],function(tx,results){
-                       		res = results.rowsAffected > 0 ? true:false;
-                       		console.log("inner:"+res)
-                       });
+                       tx.executeSql('INSERT OR REPLACE INTO combo VALUES (?,?);',[cname, ctitle],
+                       function(tx,results){
+         
+                       },function (tx, error){
+				            res = false;
+				        }
+                       );
                        
                    })
     console.log("last:"+res)
@@ -51,14 +54,14 @@ function loadCombo(){
 	}
 
 function isExist(cname){
-    var flag = false;
+    var flag = true;
     var db = getDatabase();
     db.transaction(function(tx){
-                           tx.executeSql('select * from combo where cname = ?;',[cname],function (tx, results) {
-                           	if(results.rows.length>0){
-                                flag = true;
-                            };
-                       });
+                           tx.executeSql('select * from combo where cname = ?;',[cname],
+                           function (tx, results) {
+                       	  },function (tx, error){
+				            res = false;
+				        });
           })
                             
     return flag;
@@ -90,13 +93,13 @@ function isChecked(name,date){
 
 function deleteData(name,date){
     var db = getDatabase();
-    var flag = false;
+    var flag = true;
     db.transaction(function(tx){
-                       var rs = tx.executeSql('delete from event where name =? and startDate = ?;',[name,date],function (tx, results) {
-                         	if(results.rows.length>0){
-                                flag = true;
-                            }
-                       });
+                       var rs = tx.executeSql('delete from event where name =? and startDate = ?;',[name,date],
+                       function (tx, results) {
+                       },function (tx, error){
+				            flag = false;
+				        });
                    })
     return flag;
 }
@@ -104,11 +107,13 @@ function deleteData(name,date){
 
 function insertData(name,date,stime){
     var db = getDatabase();
-    var res = false;
+    var res = true;
     db.transaction(function(tx){
-                      tx.executeSql('INSERT or REPLACE into event values(?,?,?);',[name,date,stime],function (tx, results) {
-                       		res = results.rowsAffected > 0;
-                       })
+                      tx.executeSql('INSERT or REPLACE into event values(?,?,?);',[name,date,stime],
+                      function (tx, results) {
+                       },function (tx, error){
+				            res = true;
+				        })
                    })
     return res;
 }
@@ -117,7 +122,7 @@ function insertData(name,date,stime){
 function eventsForDate(model,date){
     var db = getDatabase();
     db.transaction(function(tx){
-           tx.executeSql('SELECT * FROM event WHERE ? >= startDate AND ? <= startDate;',[date,date],function (tx, results) {
+           tx.executeSql('SELECT * FROM event WHERE startDate =? ;',[date],function (tx, results) {
            	for (var i=0, l = results.rows.length; i < l; i++){
                var t = results.rows.item(i);
                model.append({
@@ -137,7 +142,7 @@ function hasfeature(date){
     var db = getDatabase();
     var flag = false;
     db.transaction(function(tx){
-                tx.executeSql('SELECT * FROM event WHERE ? >= startDate AND ? <= startDate;',[date,date],function (tx, results) {
+                tx.executeSql('SELECT * FROM event WHERE startDate = ?;',[date],function (tx, results) {
                 	flag = results.rows.length >0
                 })
                            

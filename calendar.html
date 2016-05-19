@@ -266,7 +266,8 @@
 				    for (i = 0; i < len; i++){
 				    	htmls += '<li class="mui-table-view-cell">'+
 							'<span>'+results.rows.item(i).ctitle+ '</span>'+
-							'<div class="mui-switch mui-switch-blue mui-switch-mini">'+
+							(isActive(md5(results.rows.item(i).ctitle))?'<div class="mui-switch mui-switch-blue mui-switch-mini mui-switch-active">':
+							'<div class="mui-switch mui-switch-blue mui-switch-mini">')
 								'<div class="mui-switch-handle"></div>'+
 							'</div>'+
 						'</li>';
@@ -281,6 +282,10 @@
 				
 			    })
 				
+			}
+			
+			function isActive(cname){
+				return isExist(cname);
 			}
 			
 			document.addEventListener('plusready',function(){
@@ -326,6 +331,11 @@
 		            }
 		        }
 		    }, false );
+		    
+		    //change事件
+		    document.getElementById("today_num").addEventListener("onchange",function(){
+		    	
+		    })
 		</script>
 	</body>
 
