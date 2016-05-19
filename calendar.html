@@ -87,6 +87,7 @@
 		<script type="text/javascript" src="js/LunarCalendar.min.js"></script>
 		<script type="text/javascript" src="js/calendar.js"></script>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/md5.min.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			var menu = null,
 				main = null;
@@ -267,7 +268,7 @@
 				    	htmls += '<li class="mui-table-view-cell">'+
 							'<span>'+results.rows.item(i).ctitle+ '</span>'+
 							(isActive(md5(results.rows.item(i).ctitle))?'<div class="mui-switch mui-switch-blue mui-switch-mini mui-switch-active">':
-							'<div class="mui-switch mui-switch-blue mui-switch-mini">')
+							'<div class="mui-switch mui-switch-blue mui-switch-mini">')+
 								'<div class="mui-switch-handle"></div>'+
 							'</div>'+
 						'</li>';
@@ -278,6 +279,7 @@
 				    }
 				    document.getElementById("combo_indexlist").innerHTML = htmls;
 				    mui('.mui-content .mui-switch')['switch']();
+				    initSwitch();
 					});
 				
 			    })
@@ -333,9 +335,32 @@
 		    }, false );
 		    
 		    //change事件
-		    document.getElementById("today_num").addEventListener("onchange",function(){
+		/*    document.getElementById("today_num").addEventListener("onchange",function(){
 		    	
-		    })
+		    })*/
+		   
+		   function initSwitch(){
+		   	mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+				//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
+				//this.parentNode.querySelector('span').innerText = '状态：' + (this.classList.contains('mui-active') ? 'true' : 'false');
+				/**
+				 * toggle 事件监听
+				 */
+				//console.log(this.parentNode.querySelector('span').innerText);
+				this.addEventListener('toggle', function(event) {
+					var cname = this.parentNode.querySelector('span').innerText;
+					//开关事件入口
+					console.log(cname+":"+event.detail.isActive);
+					if(event.detail.isActive){
+						insertData(cname,new Date(),new Date().getTime());					
+					}else{
+						deleteData(cname,new Date());
+					}
+					//event.detail.isActive 可直接获取当前状态
+					//this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
+				});
+			});
+		   }
 		</script>
 	</body>
 
