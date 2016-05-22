@@ -385,8 +385,10 @@
 					}
 					if(comboList.length == 0 && eventList.length == 0){
 						document.getElementById("combo_indexlist").innerHTML = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
-					}else if(comboList.length != 0){
+					}else if(comboList.length != 0 && eventList.length == 0){
 						document.getElementById("combo_indexlist").innerHTML = htmls;
+					}else if(comboList.length == 0 && eventList.length != 0) {
+						//document.getElementById("combo_indexlist").innerHTML += htmls;
 					}else{
 						document.getElementById("combo_indexlist").innerHTML += htmls;
 					}

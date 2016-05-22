@@ -119,9 +119,9 @@ function eventsForDate(date,eventsCallback){
 		    if(len == 0){
 		    	var p = compareDate(date);
 		    	if(p == "P"){
-		    		htmls = '<li class="mui-table-view-cell">今天你没有打卡</li>';
+		    		htmls = '<li class="mui-table-view-cell">这天你没有打卡</li>';
 		    	}else if(p == "F"){
-		    		htmls = '<li class="mui-table-view-cell">请当天再来打卡</li>';
+		    		htmls = '<li class="mui-table-view-cell">还没到这一天呢</li>';
 		    	}else{
 		    		//htmls = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
 		    	}
