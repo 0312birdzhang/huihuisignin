@@ -94,6 +94,7 @@ function insertData(name,date,stime){
                       tx.executeSql('INSERT or REPLACE into event values(?,?,?);',[name,date,stime],
                       function (tx, results){
                       },function (tx, error){
+                      	mui.toast("打卡失败！")
 				      })
                    })
 }
@@ -105,18 +106,17 @@ function eventsForDate(date,eventsCallback){
     	
            tx.executeSql('SELECT * FROM event WHERE startDate =? ;',[date],
            function (tx, results) {
-           	
            	var len = results.rows.length;
 		    var htmls = ""
 		    for (i = 0; i < len; i++){
 		    	htmls += '<li class="mui-table-view-cell">'+
 					'<span>'+results.rows.item(i).name+ '</span>'+
-					'<div class="mui-switch mui-switch-blue mui-switch-mini mui-switch-active">'+
+					'<div class="mui-switch mui-switch-blue mui-switch-mini mui-active">'+
 						'<div class="mui-switch-handle"></div>'+
 					'</div>'+
 				'</li>';
-				
 			}
+		    
 		    if(len == 0){
 		    	var p = compareDate(date);
 		    	if(p == "P"){
