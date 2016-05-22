@@ -353,11 +353,11 @@ var Calendar = (function(){
 			if(index<DATA.firstDay){ //上一个月
 				setTimeout(function() {
 					pageDate(-1,itemData.year,itemData.month,itemData.day);
-						}, 200);
+						}, 150);
 			}else if(index>=DATA.firstDay+DATA.monthDays){//下一个月
 				setTimeout(function() {
 					pageDate(1,itemData.year,itemData.month,itemData.day);
-						}, 200);
+						}, 150);
 			}else{
 				resetInfo();
 				setCurrentByNow(itemData.year,itemData.month,itemData.day,index);

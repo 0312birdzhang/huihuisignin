@@ -88,6 +88,7 @@
 		<script type="text/javascript" src="js/calendar.js"></script>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/md5.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/array.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			var menu = null,
 				main = null;
@@ -139,9 +140,7 @@
 					});
 				}, 200);
 				
-				//加载combolist
-				this.loadCombo();
-				
+				initLoad();
 				
 			});
 			var isInTransition = false;
@@ -201,7 +200,7 @@
 						isInTransition = false;
 						menu.hide();
 					}, 300);
-					loadCombo();
+					initLoad();
 				}
 			};
 			//点击左上角侧滑图标，打开侧滑菜单；
@@ -257,38 +256,7 @@
 			};
 			
 			
-			function loadCombo(){
-				//查询数据
-				var db = getDatabase();
-				db.transaction(function(tx){
-			    	tx.executeSql('SELECT * FROM combo', [], function (tx, results) {
-				    var len = results.rows.length;
-				    var htmls = ""
-				    for (i = 0; i < len; i++){
-				    	htmls += '<li class="mui-table-view-cell">'+
-							'<span>'+results.rows.item(i).ctitle+ '</span>'+
-							(isActive(md5(results.rows.item(i).ctitle))?'<div class="mui-switch mui-switch-blue mui-switch-mini mui-switch-active">':
-							'<div class="mui-switch mui-switch-blue mui-switch-mini">')+
-								'<div class="mui-switch-handle"></div>'+
-							'</div>'+
-						'</li>';
-						
-					}
-				    if(len == 0){
-				    	htmls = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
-				    }
-				    document.getElementById("combo_indexlist").innerHTML = htmls;
-				    mui('.mui-content .mui-switch')['switch']();
-				    initSwitch();
-					});
-				
-			    })
-				
-			}
-			
-			function isActive(cname){
-				return isExist(cname);
-			}
+
 			
 			document.addEventListener('plusready',function(){
 			    checkArguments();
@@ -335,14 +303,12 @@
 		    }, false );
 		    
 		    //change事件
-		/*    document.getElementById("today_num").addEventListener("onchange",function(){
-		    	
-		    })*/
+		    document.getElementById("today_num").addEventListener("change",function(){
+		    	console.log("changed!");
+		    })
 		   
 		   function initSwitch(){
 		   	mui('.mui-content .mui-switch').each(function() { //循环所有toggle
-				//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
-				//this.parentNode.querySelector('span').innerText = '状态：' + (this.classList.contains('mui-active') ? 'true' : 'false');
 				/**
 				 * toggle 事件监听
 				 */
@@ -360,6 +326,63 @@
 					//this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
 				});
 			});
+		   }
+		   
+		   
+		   var eventsCallback ={
+		   		active: function(cname){
+		   			mui('.mui-content .mui-switch').each(function() { //循环所有toggle
+					//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
+					var thiscname = this.parentNode.querySelector('span').innerText;// = '状态：' + (this.classList.contains('mui-active') ? 'true' : 'false');
+						if(thiscname == cname){
+							this.className += "mui-switch-active";
+						}
+					});
+			   	},
+			   	init: function(htmls){
+		   			document.getElementById("combo_indexlist").innerHTML = htmls;
+				    mui('.mui-content .mui-switch')['switch']();
+				    initSwitch();
+		   		},
+		   		
+		   		combo: function(comboList){
+		   			
+		   			var eventList = new Array();
+		   			mui('.mui-content .mui-switch').each(function() {
+						var thisctitle = this.parentNode.querySelector('span').innerText;
+						eventList.push(thisctitle)
+						
+						
+						
+					});
+					
+					//数组比较
+					
+					var minList = Array.complement(comboList,eventList);
+					var htmls = "";
+					for (i = 0; i < minList.length; i++){
+				    	htmls += '<li class="mui-table-view-cell">'+
+							'<span>'+ minList[i]+ '</span>'+
+							'<div class="mui-switch mui-switch-blue mui-switch-mini mui-switch-active">'+
+								'<div class="mui-switch-handle"></div>'+
+							'</div>'+
+						'</li>';
+						
+					}
+					document.getElementById("combo_indexlist").innerHTML += htmls;
+					mui('.mui-content .mui-switch')['switch']();
+					initSwitch()
+		   		}
+		   	
+		   }
+		   
+		   function initLoad(){
+		   		//加载eventlist
+				eventsForDate(new Date(),eventsCallback);
+				
+				//加载今天的combolist
+				loadCombo(eventsCallback);
+				
 		   }
 		</script>
 	</body>
