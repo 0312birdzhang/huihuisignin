@@ -81,9 +81,8 @@
 		"NativeUI": {},
 		"Navigator": {},
 		"NativeObj": {},
-		"Device": {},
-		"OAuth": {},
-		"Share": {}
+		
+		"OAuth": {},"Share":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -132,24 +131,9 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": [
-					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"
-				]
+				"permissions": ["<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"]
 			},
-			"orientation": [
-				"portrait-primary",
-				"portrait-secondary",
-				"landscape-primary",
-				"landscape-secondary"
-			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"orientation": ["portrait-primary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
@@ -206,11 +190,11 @@
 					}
 				},
 				"android": {
-					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"mdpi": "C:/Users/BirdZhang/Desktop/240p.png", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "C:/Users/BirdZhang/Desktop/320p.png", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "C:/Users/BirdZhang/Desktop/480p.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/BirdZhang/Desktop/720p.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/BirdZhang/Desktop/1080p.png"
 				}
 			}
 		}
@@ -350,6 +334,9 @@
 	"unpackage": [
 	  "README.md",
 	  "js/calendar.min.js",
-	  "libs/easymob-webim-sdk/quickstart.md"
+	  "libs/easymob-webim-sdk/quickstart.md",
+	  "css/style.min.css",
+	  "images/user-photo.png",
+	  "images/icon.png"
 	]
 }

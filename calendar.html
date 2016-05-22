@@ -35,7 +35,11 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" >
 			<a class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
-			<button id='return_today' class="mui-pull-right mui-btn-link">回到今天</button>
+			<!--<button id='return_today' class="mui-pull-right mui-btn-link mui-icon mui-icon-home today">回到今天</button>-->
+			<a id="return_today" class="mui-icon mui-icon-undo mui-pull-right today" style="color: #999;"></a>
+	<!--		<button id='return_today' class="mui-pull-right mui-btn-mini mui-icon mui-icon-home mui-right today">
+		            回到今天
+		    </button>-->
 			<h1 class="mui-title">卉卉打卡</h1>
 		</header>
 		<div class="mui-content">
@@ -43,6 +47,7 @@
 				<h5 class="mui-content-padded" style="margin: 15px 10px;text-align: right;">
 				<span id="today_num"></span>&nbsp;
 				<span id="events_day" ></span>
+				<button id="hidden_button" style="display: none;"></button>
 					
 				</h5>
 				<div class="wrapper" id="wrapper">
@@ -106,11 +111,9 @@
 				/**
 				 * toggle 事件监听
 				 */
-				console.log(this.parentNode.querySelector('span').innerText);
 				this.addEventListener('toggle', function(event) {
 					
 					//开关事件入口
-					console.log(this.parentNode.querySelector('span').innerText+":"+event.detail.isActive);
 					//event.detail.isActive 可直接获取当前状态
 					//this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
 				});
@@ -212,9 +215,9 @@
 				}
 			});
 			//敲击顶部导航，内容区回到顶部
-			document.querySelector('header').addEventListener('doubletap', function() {
+/*			document.querySelector('header').addEventListener('doubletap', function() {
 				main.children()[0].evalJS('mui.scrollTo(0, 100)');
-			});
+			});*/
 			//主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作
 			//window.addEventListener("swiperight", openMenu);
 			//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
@@ -239,7 +242,11 @@
 			mui.back = function() {
 				if (showMenu) {
 					closeMenu();
-				} else {
+				}else if(!isToday()){
+					var el = document.getElementById('return_today');
+					mui.trigger(el,'tap');
+				}
+				else {
 					//首次按键，提示‘再按一次退出应用’
 					if (!first) {
 						first = new Date().getTime();
@@ -256,6 +263,17 @@
 			};
 			
 			
+			//是不是今天
+			function isToday(){
+				var date = document.getElementById("today_num").innerText;
+				var res = parseDate(new Date());
+				if(res == date){
+					return true;
+				}else{
+					return false;
+				}
+				
+			}
 
 			
 			document.addEventListener('plusready',function(){
@@ -264,7 +282,6 @@
 			},false);
 			// 判断启动方式
 			function checkArguments(){
-			    console.log("plus.runtime.launcher: "+plus.runtime.launcher);
 			    var args = plus.runtime.arguments;
 			    if(args){
 			        // 处理args参数，如打开新页面等
@@ -273,7 +290,6 @@
 			}
 			// 处理从后台恢复
 			document.addEventListener('newintent',function(){
-			    console.log("addEventListener: newintent");
 			    checkArguments();
 			},false);
 			
@@ -292,25 +308,25 @@
 		            	//return_today
 		            	var el = document.getElementById('return_today');
 						mui.trigger(el,'tap');
-//		                if (UserInfo.has_login()) {
-//		                    if (UserInfo.touch_pwd()) {
-//		                                                // 打开手势密码页面
-//		                        openPwdPage();
-//		                    }
-//		                }
 		            }
 		        }
 		    }, false );
 		    
 		    //change事件
-/*		    document.getElementById("hidden_today_num").addEventListener("input",function(){
-		    	console.log("changed!");
-		    })*/
+			$("#today_num").on('change',function(){
+				
+				if(isToday()){
+					initLoad();
+				}else{
+					eventsForDate(getTodayNum(),eventsCallback);
+				}
+			})
 		   
-		   function testChange(){
-		   		console.log("changed!");
+		   function getTodayNum(){
+		   		return document.getElementById("today_num").innerText;
 		   }
 		   
+		   //初始化打卡开关
 		   function initSwitch(){
 		   	mui('.mui-content .mui-switch').each(function() { //循环所有toggle
 				/**
@@ -320,21 +336,18 @@
 				this.addEventListener('toggle', function(event) {
 					var cname = this.parentNode.querySelector('span').innerText;
 					//开关事件入口
-					console.log(cname+":"+event.detail.isActive);
 					if(event.detail.isActive){
 						insertData(cname,parseDate(new Date()),new Date().getTime());					
 					}else{
 						deleteData(cname,parseDate(new Date()));
 					}
-					//event.detail.isActive 可直接获取当前状态
-					//this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
 				});
 			});
 		   }
 		   
 		   
 		   var eventsCallback ={
-		   		active: function(cname){
+/*		   		active: function(cname){
 		   			mui('.mui-content .mui-switch').each(function() { //循环所有toggle
 					//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
 					var thiscname = this.parentNode.querySelector('span').innerText;// = '状态：' + (this.classList.contains('mui-active') ? 'true' : 'false');
@@ -342,11 +355,11 @@
 							this.className += "mui-switch-active";
 						}
 					});
-			   	},
+			   	},*/
 			   	init: function(htmls){
 		   			document.getElementById("combo_indexlist").innerHTML = htmls;
-				    mui('.mui-content .mui-switch')['switch']();
-				    initSwitch();
+				    //mui('.mui-content .mui-switch')['switch']();
+				    //initSwitch();
 		   		},
 		   		
 		   		combo: function(comboList){
@@ -364,17 +377,18 @@
 					for (i = 0; i < minList.length; i++){
 				    	htmls += '<li class="mui-table-view-cell">'+
 							'<span>'+ minList[i]+ '</span>'+
-							'<div class="mui-switch mui-switch-blue mui-switch-mini mui-switch-active">'+
+							'<div class="mui-switch mui-switch-blue mui-switch-mini">'+
 								'<div class="mui-switch-handle"></div>'+
 							'</div>'+
 						'</li>';
 						
 					}
-					if(comboList.length ==0 && eventList.length == 0){
+					if(comboList.length == 0 && eventList.length == 0){
 						document.getElementById("combo_indexlist").innerHTML = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
+					}else if(comboList.length != 0){
+						document.getElementById("combo_indexlist").innerHTML = htmls;
 					}else{
 						document.getElementById("combo_indexlist").innerHTML += htmls;
-						
 					}
 					mui('.mui-content .mui-switch')['switch']();
 					initSwitch()
@@ -384,13 +398,16 @@
 		   }
 		   
 		   function initLoad(){
+		   	if(isToday()){
 		   		//加载eventlist
 				eventsForDate(parseDate(new Date()),eventsCallback);
-				
 				//加载今天的combolist
 				loadCombo(eventsCallback);
 				
+				mui('.mui-content .mui-switch')['switch']();
+			}
 		   }
+		   
 		</script>
 	</body>
 

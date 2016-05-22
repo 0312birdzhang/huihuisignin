@@ -193,7 +193,7 @@ var Calendar = (function(){
 		var currentLunar = LunarCalendar.solarToLunar(current.year,current.month,current.day);
 		var weekday = new Date(current.year,current.month-1,current.day).getDay();
 		var weekList = ['日','一','二','三','四','五','六'];
-		$('#today_num').html(formatDate());
+		$('#today_num').html(formatDate()).trigger('change'); 
 		$('.date_lunar_info').html('农历'+currentLunar.lunarMonthName+currentLunar.lunarDayName+' 星期'+weekList[weekday]);
 		$('.date_gan_zhi').html(currentLunar.GanZhiYear+'年['+currentLunar.zodiac+'年] '+currentLunar.GanZhiMonth+'月 '+currentLunar.GanZhiDay+'日');
 		

@@ -116,7 +116,6 @@ function eventsForDate(date,eventsCallback){
 					'</div>'+
 				'</li>';
 			}
-		    
 		    if(len == 0){
 		    	var p = compareDate(date);
 		    	if(p == "P"){
@@ -177,12 +176,10 @@ function addSignFun(cname,ctitle,callback){
 function compareDate(date){
 	var today = new Date();
 	date = new Date(date);
-	var today_str = today.getFullYear() +"-"+ (today.getMonth()+1) +"-"+ today.getDate();
-	var date_str = date.getFullYear() +"-"+ (date.getMonth()+1) +"-"+ date.getDate();
-	if(today_str > date_str){
+	if(today.getTime() > date.getTime()){
 		//过去的日子
 		return "P";//pass
-	}else if(today_str < date_str){
+	}else if(today.getTime() < date.getTime()){
 		//将来的日子
 		return "F";//future
 	}else{
@@ -194,5 +191,8 @@ function compareDate(date){
 //处理日期
 function parseDate(date){
 	var d = new Date(date);
-	return d.getFullYear() +"-"+ (d.getMonth()+1) +"-"+ d.getDate();
+	var year = d.getFullYear();
+    var mon = d.getMonth()+1;
+    var day=d.getDate();
+    return year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day)
 }
