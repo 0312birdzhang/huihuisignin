@@ -141,6 +141,7 @@
 			}
 			.avata-name{
 				margin-right: -30px;
+				margin-bottom: 20;
 				text-align: center;
 				font-weight: bold;
 			}
@@ -177,9 +178,9 @@
 					<a class="mui-navigat"> 
 						<img class="mui-media-object head-img avatar" id="head-img" src="images/avatar.jpg">
 					</a>
-					<span class="avata-name">
+					<!--<span class="avata-name">
 						Hello
-					</span>
+					</span>-->
 				</li>
 			</ul>
 			<ul class="mui-table-view mui-table-view-chevron">
@@ -200,7 +201,7 @@
 				</li>
 			</ul>
 			<ul class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell" style="text-align: center;">
+				<li class="mui-table-view-cell" style="text-align: center;margin-right: -30px;">
 					<a onclick="javascript:quitApp();">退出</a>
 				</li>
 			</ul>
@@ -284,7 +285,12 @@
 			});
 			
 			function quitApp(){
-				plus.runtime.quit();
+				if(mui.os.android){
+					plus.runtime.quit();
+				}else{
+					mui.alert("请点击home键退出")
+				}
+				
 			}
 		</script>
 	</body>

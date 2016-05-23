@@ -123,7 +123,7 @@ function eventsForDate(date,eventsCallback){
 		    	}else if(p == "F"){
 		    		htmls = '<li class="mui-table-view-cell">还没到这一天呢</li>';
 		    	}else{
-		    		//htmls = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
+		    		//htmls = '<li class="mui-table-view-cell">点击左上角菜单键进入打卡内容管理进行添加</li>';
 		    	}
 		    }
 		    

@@ -98,6 +98,7 @@
 			var menu = null,
 				main = null;
 			var showMenu = false;
+			var app_init_date = parseDate(new Date())
 			mui.init({
 				swipeBack: false,
 				statusBarBackground: '#f7f7f7',
@@ -308,6 +309,11 @@
 		            	//return_today
 		            	var el = document.getElementById('return_today');
 						mui.trigger(el,'tap');
+						//回到程序日期增加的情况
+						var back_today = parseDate(new Date());
+						if(back_today != app_init_date){
+							initLoad()
+						}
 		            }
 		        }
 		    }, false );
@@ -384,7 +390,7 @@
 						
 					}
 					if(comboList.length == 0 && eventList.length == 0){
-						document.getElementById("combo_indexlist").innerHTML = '<li class="mui-table-view-cell">点击左上角日期或按菜单键进入打卡内容管理进行添加</li>';
+						document.getElementById("combo_indexlist").innerHTML = '<li class="mui-table-view-cell">点击左上角或按菜单键进入打卡内容管理进行添加</li>';
 					}else if(comboList.length != 0 && eventList.length == 0){
 						document.getElementById("combo_indexlist").innerHTML = htmls;
 					}else if(comboList.length == 0 && eventList.length != 0) {
@@ -405,7 +411,6 @@
 				eventsForDate(parseDate(new Date()),eventsCallback);
 				//加载今天的combolist
 				loadCombo(eventsCallback);
-				
 				mui('.mui-content .mui-switch')['switch']();
 			}
 		   }
