@@ -200,7 +200,7 @@
 					</a>
 				</li>
 			</ul>
-			<ul class="mui-table-view mui-table-view-chevron">
+			<ul class="mui-table-view mui-table-view-chevron" id="exit_ul">
 				<li class="mui-table-view-cell" style="text-align: center;margin-right: -30px;">
 					<a onclick="javascript:quitApp();">退出</a>
 				</li>
@@ -216,6 +216,11 @@
 					span.style.display = "none";
 				}
 				aniShow = "pop-in";
+				
+				var exit_ul = document.getElementById("exit_ul")
+				if(exit_ul){
+					exit_ul.style.display = "none";
+				}
 			}
 			var subWebview=null,template=null,index=null;
 			mui.plusReady(function () {
