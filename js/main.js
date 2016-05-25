@@ -165,7 +165,6 @@ function addSignFun(cname,ctitle,callback){
                            		callback.initload();
                            	}
                        	  },function (tx, error){
-				            res = false;
 				        });
           })
 }
@@ -195,4 +194,55 @@ function parseDate(date){
     var mon = d.getMonth()+1;
     var day=d.getDate();
     return year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day)
+}
+
+//获取d日期前的n天日期
+function getBeforeDate(d,n){
+    var year = d.getFullYear();
+    var mon = d.getMonth()+1;
+    var day=d.getDate();
+    var hour = d.getHours();
+    if(day <= n){
+        if(mon>1) {
+            mon=mon-1;
+        }
+        else {
+            year = year-1;
+            mon = 12;
+        }
+    }
+    d.setDate(d.getDate()-n);
+    year = d.getFullYear();
+    mon=d.getMonth()+1;
+    day=d.getDate();
+    var s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
+    return s;
+}
+
+//统计一周打卡数
+function sumWeek(callback){
+	var db = getDatabase();
+	var today = parseDate(new Date());
+	var before = getBeforeDate(new Date(),7);
+    db.transaction(function(tx){
+                           tx.executeSql('select count(1) as count from event where startDate >= ? and startDate <= ?;',[before,today],
+                           function (tx, results) {
+                           	callback.sumWeek(results);
+                       	  },function (tx, error){
+				        });
+          })
+}
+
+//统计一周打卡频率最高的
+function sumFrequence(callback){
+	var db = getDatabase();
+	var today = parseDate(new Date());
+	var before = getBeforeDate(new Date(),7);
+    db.transaction(function(tx){
+                           tx.executeSql('select name,count(1) as count from event where startDate >= ? and startDate <= ? group by name;',[before,today],
+                           function (tx, results) {
+                           	callback.sumFrequence(results);
+                       	  },function (tx, error){
+				        });
+          })
 }
