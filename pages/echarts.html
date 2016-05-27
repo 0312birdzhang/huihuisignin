@@ -58,14 +58,16 @@
 			
 			
 			var callback = {
-				sumWeek: function(x_arr,y_arr){
+				sumWeek: function(x_array,y_array){
 					var option = {
 						//legend: {
 						//	data: ['打卡量']
 						//},
 						grid: {
 							x: 35,
+							x2: 10,
 							y: 30,
+							y2: 25
 						},
 						toolbox: {
 							show: false,
@@ -92,19 +94,20 @@
 						calculable: false,
 						xAxis: [{
 							type: 'category',
-							data: x_arr
+							data: x_array
 						}],
 						yAxis: [{
 							type: 'value',
 							splitArea: {
 								show: true
-							}
+							},
+							
 						}],
 						series: [{
 							name: '打卡数',
 							type: 'line',
-							data: y_arr
-						},]
+							data: y_array
+						}],
 					};
 					var lineChart = echarts.init(byId('lineChart'));
 					lineChart.setOption(option);
@@ -114,7 +117,7 @@
 					var option = {
 						calculable: false,
 						series: [{
-							name: '打卡评论',
+							name: '打卡频率',
 							type: 'pie',
 							radius: '65%',
 							center: ['50%', '50%'],

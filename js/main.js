@@ -196,6 +196,7 @@ function parseDate(date){
     return year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day)
 }
 
+
 //获取d日期前的n天日期
 function getBeforeDate(d,n){
     var year = d.getFullYear();
@@ -224,18 +225,52 @@ function sumWeek(callback){
 	var db = getDatabase();
 	var today = parseDate(new Date());
 	var before = getBeforeDate(new Date(),7);
+	var x_arr = new Array();
+	for(i = 0;i < 7;i++){
+		x_arr.push(getBeforeDate(new Date(),6-i))
+	}
+	
     db.transaction(function(tx){
                            tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ? group by startDate;',[before,today],
                            function (tx, results) {
                            	var len = results.rows.length;
 							var y_arr = new Array();
-							var x_arr = new Array();
+							var tmp_arr = new Array();
 							for (i = 0; i < len; i++){
-									x_arr.push(results.rows.item(i).startDate);
-									y_arr.push(results.rows.item(i).count);
-									
+								var startDate = results.rows.item(i).startDate;
+								tmp_arr.push(results.rows.item(i).startDate);
+								y_arr.push(
+									{
+										name: results.rows.item(i).startDate,
+										value:results.rows.item(i).count
+									}
+								);
 							}
-                           	callback.sumWeek(x_arr,y_arr);
+							
+							
+							
+							for (i = 0; i < 7; i++){
+								var startDate = x_arr[i];
+								if(tmp_arr.indexOf(startDate) > -1){
+									
+								}else{
+									y_arr.push(
+										{
+											name:startDate,
+											value:0
+										}
+									);
+								}
+								
+							}
+							var x_array = new Array();
+							var y_array = new Array();
+							y_arr = y_arr.sort(by("name"));
+							for(i = 0;i < y_arr.length;i++){
+								x_array.push(y_arr[i].name.substring(5));
+								y_array.push(y_arr[i].value);
+							}
+                           	callback.sumWeek(x_array,y_array);
                        	  },function (tx, error){
 				        });
           })
@@ -261,4 +296,25 @@ function sumFrequence(callback){
                        	  },function (tx, error){
 				        });
           })
+}
+
+//根据name排序数组
+var by = function(name){
+    return function(o, p){
+        var a, b;
+        if (typeof o === "object" && typeof p === "object" && o && p) {
+            a = o[name];
+            b = p[name];
+            if (a === b) {
+                return 0;
+            }
+            if (typeof a === typeof b) {
+                return a < b ? -1 : 1;
+            }
+            return typeof a < typeof b ? -1 : 1;
+        }
+        else {
+            throw ("error");
+        }
+    }
 }
