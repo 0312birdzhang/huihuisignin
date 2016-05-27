@@ -50,32 +50,19 @@
 		<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			
-			initialize();
+			
 			mui.init({
 				swipeBack:true //启用右滑关闭功能
 			});
 			
-			var lineChart = echarts.init(byId('lineChart'));
-			var pieChart = echarts.init(byId('pieChart'));
 			
-			var eventsCallback ={
-				//count,startDate
-				//line
-				sumWeek: function(datas){
-					var len = datas.rows.length;
-					var y_arr = new Array();
-					var x_arr = new Array();
-					for (i = 0; i < len; i++){
-							x_arr.append(datas.rows[i].startDate);
-							y_arr.append(datas.rows[i].count);
-							
-					}
-					console.log(x_arr);
-					console.log(y_arr)
+			
+			var callback = {
+				sumWeek: function(x_arr,y_arr){
 					var option = {
-						legend: {
-							data: ['打卡量']
-						},
+						//legend: {
+						//	data: ['打卡量']
+						//},
 						grid: {
 							x: 35,
 							y: 30,
@@ -119,19 +106,11 @@
 							data: y_arr
 						},]
 					};
-					lineChart.setOption(getOption('line'));
+					var lineChart = echarts.init(byId('lineChart'));
+					lineChart.setOption(option);
 				},
-				sumFrequence:function(datas){
+				sumFrequence:function(x_arr){
 					
-					var len = datas.rows.length;
-					var x_arr = new Array();
-					for (i = 0; i < len; i++){
-						x_arr.append({
-								name:datas.rows[i].name,
-								value:datas.rows[i].count
-							});
-					}
-					console.log(x_arr);
 					var option = {
 						calculable: false,
 						series: [{
@@ -142,21 +121,19 @@
 							data: x_arr
 						}]
 					};
-					pieChart.setOption(getOption('line'));
+					var pieChart = echarts.init(byId('pieChart'));
+					pieChart.setOption(option);
 				}
 				
 			}
-			(function($) {
-				console.log("1")
-				sumWeek(eventsCallback);
-				sumFrequence(eventsCallback)
-				console.log("2")
-				})(mui);
 			var byId = function(id) {
 				return document.getElementById(id);
 			};
 
-			
+			mui.plusReady(function() {
+				sumWeek(callback);
+				sumFrequence(callback)
+			})
 			
 	
 		</script>

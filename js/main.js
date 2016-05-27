@@ -225,9 +225,17 @@ function sumWeek(callback){
 	var today = parseDate(new Date());
 	var before = getBeforeDate(new Date(),7);
     db.transaction(function(tx){
-                           tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ?;',[before,today],
+                           tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ? group by startDate;',[before,today],
                            function (tx, results) {
-                           	callback.sumWeek(results);
+                           	var len = results.rows.length;
+							var y_arr = new Array();
+							var x_arr = new Array();
+							for (i = 0; i < len; i++){
+									x_arr.push(results.rows.item(i).startDate);
+									y_arr.push(results.rows.item(i).count);
+									
+							}
+                           	callback.sumWeek(x_arr,y_arr);
                        	  },function (tx, error){
 				        });
           })
@@ -241,7 +249,15 @@ function sumFrequence(callback){
     db.transaction(function(tx){
                            tx.executeSql('select name,count(1) as count from event where startDate >= ? and startDate <= ? group by name;',[before,today],
                            function (tx, results) {
-                           	callback.sumFrequence(results);
+                           	var len = results.rows.length;
+							var x_arr = new Array();
+							for (i = 0; i < len; i++){
+								x_arr.push({
+										name:results.rows.item(i).name,
+										value:results.rows.item(i).count
+									});
+							}
+                           		callback.sumFrequence(x_arr);
                        	  },function (tx, error){
 				        });
           })
