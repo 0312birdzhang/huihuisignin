@@ -225,7 +225,7 @@ function sumWeek(callback){
 	var today = parseDate(new Date());
 	var before = getBeforeDate(new Date(),7);
     db.transaction(function(tx){
-                           tx.executeSql('select count(1) as count from event where startDate >= ? and startDate <= ?;',[before,today],
+                           tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ?;',[before,today],
                            function (tx, results) {
                            	callback.sumWeek(results);
                        	  },function (tx, error){

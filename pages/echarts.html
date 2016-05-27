@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>打卡统计</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			.chart {
+				height: 200px;
+				margin: 0px;
+				padding: 0px;
+			}
+			h5 {
+				margin-top: 30px;
+				font-weight: bold;
+			}
+			h5:first-child {
+				margin-top: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">打卡统计</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<p style="text-indent: 22px;">
+					你的打卡统计数据
+				</p>
+			</div>
+			<div class="mui-content-padded">
+				<h5>一周打卡数</h5>
+				<div class="chart" id="lineChart"></div>
+				<h5>一周打卡频率</h5>
+				<div class="chart" id="pieChart"></div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../libs/echarts-all.js"></script>
+		<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			
+			initialize();
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			
+			var lineChart = echarts.init(byId('lineChart'));
+			var pieChart = echarts.init(byId('pieChart'));
+			
+			var eventsCallback ={
+				//count,startDate
+				//line
+				sumWeek: function(datas){
+					var len = datas.rows.length;
+					var y_arr = new Array();
+					var x_arr = new Array();
+					for (i = 0; i < len; i++){
+							x_arr.append(datas.rows[i].startDate);
+							y_arr.append(datas.rows[i].count);
+							
+					}
+					console.log(x_arr);
+					console.log(y_arr)
+					var option = {
+						legend: {
+							data: ['打卡量']
+						},
+						grid: {
+							x: 35,
+							y: 30,
+						},
+						toolbox: {
+							show: false,
+							feature: {
+								mark: {
+									show: true
+								},
+								dataView: {
+									show: true,
+									readOnly: false
+								},
+								magicType: {
+									show: true,
+									type: ['line', 'bar']
+								},
+								restore: {
+									show: true
+								},
+								saveAsImage: {
+									show: true
+								}
+							}
+						},
+						calculable: false,
+						xAxis: [{
+							type: 'category',
+							data: x_arr
+						}],
+						yAxis: [{
+							type: 'value',
+							splitArea: {
+								show: true
+							}
+						}],
+						series: [{
+							name: '打卡数',
+							type: 'line',
+							data: y_arr
+						},]
+					};
+					lineChart.setOption(getOption('line'));
+				},
+				sumFrequence:function(datas){
+					
+					var len = datas.rows.length;
+					var x_arr = new Array();
+					for (i = 0; i < len; i++){
+						x_arr.append({
+								name:datas.rows[i].name,
+								value:datas.rows[i].count
+							});
+					}
+					console.log(x_arr);
+					var option = {
+						calculable: false,
+						series: [{
+							name: '打卡评论',
+							type: 'pie',
+							radius: '65%',
+							center: ['50%', '50%'],
+							data: x_arr
+						}]
+					};
+					pieChart.setOption(getOption('line'));
+				}
+				
+			}
+			(function($) {
+				console.log("1")
+				sumWeek(eventsCallback);
+				sumFrequence(eventsCallback)
+				console.log("2")
+				})(mui);
+			var byId = function(id) {
+				return document.getElementById(id);
+			};
+
+			
+			
+	
+		</script>
+	</body>
+
+</html>
