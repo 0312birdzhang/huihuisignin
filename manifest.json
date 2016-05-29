@@ -82,7 +82,7 @@
 		"Navigator": {},
 		"NativeObj": {},
 
-		"OAuth": {},
+		
 		"Share": {},
 		"Device": {}
 	},
@@ -97,19 +97,15 @@
 		"distribute": {
 			"plugins": {
 				"oauth": {
-					"sina": {
-						"appkey": "2738147420",
-						"appsecret": "179282ed52d7d5c21eb4e4047f66ca9b",
-						"redirect_uri": "http://qtbbs.birdzhang.xyz/oauth/weibologincallback"
-					}
+					
 				},
 				"share": {
 					"sina": {
 						"appkey": "2738147420",
-						"appsecret": "179282ed52d7d5c21eb4e4047f66ca9b",
-						"redirect_uri": "http://qtbbs.birdzhang.xyz/oauth/weibologincallback",
+						"appsecret": "d63d639b7025b3803607ba6231666a0e",
+						"redirect_uri": "http://api.weibo.com/oauth2/default.html",
 						"description": "可选，新浪微博分享"
-					}
+					},"weixin":{"appid":"wxcfbfeebb0ce69f91","appsecret":"23ef45c0727892a6b7e93681a1776e93","description":"可选，微信分享"}
 				}
 			},
 			"apple": {
@@ -133,17 +129,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": [
-					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"
-				]
+				"permissions": ["<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"]
 			},
 			"orientation": [
 				"portrait-primary"
