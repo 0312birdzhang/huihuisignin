@@ -25,3 +25,8 @@
 * <a href="https://github.com/zzyss86/LunarCalendar">小推万年历</a>
 
 * <a href="http://www.dcloud.io/mui.html">Mui框架</a>
+
+
+##已知bug
+
+* 时区不为东八区的情况下不能使用
