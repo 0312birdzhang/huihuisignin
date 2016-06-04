@@ -146,6 +146,11 @@
 				
 				initLoad();
 				
+				var lauchFlag = plus.storage.getItem("lauchFlag")
+				if(!lauchFlag){
+					plus.webview.open("guide.html")
+				}
+				
 			});
 			var isInTransition = false;
 			/**
