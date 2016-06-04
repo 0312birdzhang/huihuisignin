@@ -25,3 +25,15 @@
 * <a href="https://github.com/zzyss86/LunarCalendar">小推万年历</a>
 
 * <a href="http://www.dcloud.io/mui.html">Mui框架</a>
+
+
+##下载地址
+
+* 安卓
+	http://www.wandoujia.com/apps/com.birdzhang.huihuisignin
+* IOS
+	https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1116482144&mt=8
+	
+##已知bug
+
+* 时区不为东八区的情况下不能使用，暂时等待小推万年历更新
