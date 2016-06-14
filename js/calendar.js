@@ -129,6 +129,7 @@ var Calendar = (function(){
 		'<div class="date_item<%=itemCls%>" data-index="<%=index%>">',
 		'	<span class="date_icon<%=iconCls%>"><%=iconText%></span>',
 		'	<span class="date_day"><%=day%></span>',
+		'   <%=counts%>',
 		'	<span class="date_lunar<%=fetvCls%>"><%=lunar%></span>',
 		'</div>'
 	];
@@ -235,16 +236,18 @@ var Calendar = (function(){
 		
 		for(var i=0;i<DATA.monthData.length;i++){
 			var itemData = DATA.monthData[i];
+			itemData.counts = 0;
 			
 			if(i%7==0){ //某行第一列
 				dateHtml+='<div class="date_row">'
 			};
-			
+			//<span class="mui-badge mui-badge-success">123</span>
 			var extendObj = {
 				index : i,
 				itemCls: '',
 				iconCls: itemData.worktime ? (itemData.worktime==1 ? ' worktime' : ' holiday') : '',
 				iconText: itemData.worktime ? (itemData.worktime==1 ? '班' : '休') : '',
+				counts: itemData.counts?(itemData.counts >0 ? '<span class="mui-badge mui-badge-success">'+itemData.counts+'</span>':''):'' ,
 				fetvCls: (itemData.lunarFestival || itemData.term) ? ' lunar_fetv' : (itemData.solarFestival ? ' solar_fetv' : ''),
 				lunar: ''
 			};
