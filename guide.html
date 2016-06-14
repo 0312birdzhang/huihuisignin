@@ -246,7 +246,7 @@
 			});
 			//立即体验按钮点击事件
 			document.getElementById("close").addEventListener('tap', function(event) {
-				plus.storage.setItem("lauchFlag", "true");
+				plus.storage.setItem("lauchFlag", true);
 				plus.navigator.setFullscreen(false);
 				plus.webview.currentWebview().close();
 			}, false);
