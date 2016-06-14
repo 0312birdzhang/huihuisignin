@@ -73,7 +73,7 @@ input,input:focus,select:focus {
 .hide{ display:none;}
 .show{ display:block;}
 
-.icon{ background:url(http://cdn.tuijs.com/upload/icon.png) no-repeat; width:36px; height:36px; display:block;}
+.icon{ background:url(/images/icon.png) no-repeat; width:36px; height:36px; display:block;}
 .icon_set{ background-position:0 -64px;}
 
 .toolbar{
