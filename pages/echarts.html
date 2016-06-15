@@ -27,86 +27,126 @@
 		</style>
 		<script type="text/javascript">
 		// H5 plus事件处理
+		var shares=null;
+		var Intent=null,File=null,Uri=null,main=null;
 		function plusReady(){
-			var ev=document.getElementById('version');
-			ev&&(ev.innerText=plus.runtime.version);
-			plus.webview.currentWebview().show('zoom-fade-out');
-			// 更新分享按钮
-			plus.share.getServices(function(s){
-				for(var i in s){
-					shares[s[i].id]=s[i];
+				updateSerivces();
+				if(plus.os.name=="Android"){
+					main = plus.android.runtimeMainActivity();
+					Intent = plus.android.importClass("android.content.Intent");
+					File = plus.android.importClass("java.io.File");
+					Uri = plus.android.importClass("android.net.Uri");
 				}
+			}
+			if(window.plus){
+				plusReady();
+			}else{
+				document.addEventListener("plusready",plusReady,false);
+			}
+			/**
+			 * 更新分享服务
+			 */
+			function updateSerivces(){
+				plus.share.getServices( function(s){
+					shares={};
+					for(var i in s){
+						var t=s[i];
+						shares[t.id]=t;
+					}
+				}, function(e){
+					//outSet( "获取分享服务列表失败："+e.message );
+				} );
+			}
+			/**
+			   * 分享操作
+			   * @param {JSON} sb 分享操作对象s.s为分享通道对象(plus.share.ShareService)
+			   * @param {Boolean} bh 是否分享链接
+			   */
+			function shareAction(sb,bh) {
+				//outSet( "分享操作：" );
+				if(!sb||!sb.s){
+					console.log("无效的分享服务！");
+					//outLine( "无效的分享服务！" );
+					return;
+				}
+				var msg={content:sharecontent.value,extra:{scene:sb.x}};
+				if(bh){
+					console.log(sharehref.value)
+					msg.href=sharehref.value;
+					if(sharehrefTitle&&sharehrefTitle.value!=""){
+						msg.title=sharehrefTitle.value;
+					}
+					if(sharehrefDes&&sharehrefDes.value!=""){
+						msg.content=sharehrefDes.value;
+					}
+					msg.thumbs=["_www/gfm.png"];
+					msg.pictures=["_www/gfm.png"];
+				}else{
+					if(pic&&pic.realUrl){
+						msg.pictures=[pic.realUrl];
+					}
+				}
+				// 发送分享
+				if ( sb.s.authenticated ) {
+					//outLine( "---已授权---" );
+					shareMessage(msg,sb.s);
+				} else {
+					//outLine( "---未授权---" );
+					sb.s.authorize( function(){
+							shareMessage(msg,sb.s);
+						},function(e){
+						//outLine( "认证授权失败："+e.code+" - "+e.message );
+					});
+				}
+			}
+			/**
+			   * 发送分享消息
+			   * @param {JSON} msg
+			   * @param {plus.share.ShareService} s
+			   */
+			function shareMessage(msg,s){
+				//outLine(JSON.stringify(msg));
+				s.send( msg, function(){
+					//outLine( "分享到\""+s.description+"\"成功！ " );
+					mui.toast("分享到\""+s.description+"\"成功！ ");
+				}, function(e){
+					//outLine( "分享到\""+s.description+"\"失败: "+JSON.stringify(e) );
+					mui.toast("分享到\""+s.description+"\"失败: "+JSON.stringify(e));
+				} );
+			}
+			// 打开分享
+			function shareShow(){
+				var shareBts=[];
+				// 更新分享列表
 				var ss=shares['weixin'];
-				ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
-				shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+				if(navigator.userAgent.indexOf('StreamApp')<0&&navigator.userAgent.indexOf('qihoo')<0){  //在360流应用中微信不支持分享图片
+					ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
+					shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+				}
 				ss=shares['sinaweibo'];
 				ss&&shareBts.push({title:'新浪微博',s:ss});
 				ss=shares['qq'];
 				ss&&ss.nativeClient&&shareBts.push({title:'QQ',s:ss});
-				('Android'===plus.os.name)&&shareBts.push({title:'更多'});
-			},function(e){
-				console.log('updateShare failed: '+JSON.stringify(e));
-			});
-			// 在流应用环境下显示“创建桌面图标”
-			if(navigator.userAgent.indexOf('StreamApp')>=0){
-				shortcut.style.display='block';
+				// 弹出分享列表
+				shareBts.length>0?plus.nativeUI.actionSheet({title:'分享',cancel:'取消',buttons:shareBts},function(e){
+					(e.index>0)&&shareAction(shareBts[e.index-1],true);
+				}):plus.nativeUI.alert('当前环境无法支持分享操作!');
 			}
-		}
-		document.addEventListener("plusready",plusReady,false);
-		var bStream = navigator.userAgent.indexOf('StreamApp')>=0;
-			// 分享应用
-			var shares={},shareBts=[];
-			function share(){
-				shareBts.length>1?plus.nativeUI.actionSheet({title:'分享',cancel:'取消',buttons:shareBts},function(e){
-					(e.index>0)&&shareAction(shareBts[e.index-1]);
-				}):(shareBts.length>0?shareWithSystem():plus.nativeUI.alert('当前环境无法支持分享操作!'));
+			// 分析链接
+			function shareHref(){
+				var shareBts=[];
+				// 更新分享列表
+				var ss=shares['weixin'];
+				ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
+				shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+				ss=shares['qq'];
+				ss&&ss.nativeClient&&shareBts.push({title:'QQ',s:ss});
+				// 弹出分享列表
+				shareBts.length>0?plus.nativeUI.actionSheet({title:'分享链接',cancel:'取消',buttons:shareBts},function(e){
+					(e.index>0)&&shareAction(shareBts[e.index-1],true);
+				}):plus.nativeUI.alert('当前环境无法支持分享链接操作!');
 			}
-			function shareAction(sb){
-				if(!sb.s){
-					shareWithSystem();
-					return;
-				}
-				var msg={};
-				msg.href='http://0312birdzhang.oschina.io/huihuisignin/';
-				msg.content='我正在用卉卉打卡，你也来试试吧';
-				sb.x&&(msg.extra={scene:sb.x});
-				msg.thumbs=['_www/images/16x16.png'];
-				msg.pictures =['_www/images/80x80.png'];
-				console.log('share '+sb.title+' : '+JSON.stringify(msg));
-				sb.s.authenticated?shareMessage(sb.s,msg):sb.s.authorize(function(){
-					shareMessage(sb.s,msg);
-				},function(e){
-					plus.nativeUI.toast('取消分享!');
-				});
-			}
-			function shareMessage(s,m){
-				s.send(m, function(){
-					plus.nativeUI.toast('完成分享!');
-				},function(e){
-					plus.nativeUI.toast('取消分享!');
-				});
-			}
-			function shareWithSystem(){
-				var main = plus.android.runtimeMainActivity(),
-				Intent = plus.android.importClass('android.content.Intent'),
-				File = plus.android.importClass('java.io.File'),
-				Uri = plus.android.importClass('android.net.Uri');
-				var intent=new Intent(Intent.ACTION_SEND),
-				p=plus.io.convertLocalFileSystemURL("_doc/images/80x80.png"),
-				f=new File(p),
-				uri=Uri.fromFile(f);
-				if(f.exists()&&f.isFile()){
-					intent.setType('image/*');
-					intent.putExtra(Intent.EXTRA_STREAM,uri);
-				}else{
-					intent.setType('text/plain');
-				}
-				console.log("p:"+p)
-				intent.putExtra(Intent.EXTRA_SUBJECT,'卉卉打卡');
-				intent.putExtra(Intent.EXTRA_TEXT,'我正在用卉卉打卡，你也来试试吧');
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				main.startActivity(Intent.createChooser(intent,'分享"卉卉打卡"'));
-			}
+			
 		</script>
 	</head>
 
@@ -114,7 +154,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">打卡统计</h1>
-			<a class="mui-icon mui-pull-right iconfont icon-share" onclick="share();"></a>
+			<a class="mui-icon mui-pull-right iconfont icon-share" onclick="shareShow();"></a>
 		</header>
 		<div class="mui-content">
 			<div class="mui-content-padded">
@@ -127,6 +167,16 @@
 				<div class="chart" id="lineChart"></div>
 				<h5>一周打卡频率</h5>
 				<div class="chart" id="pieChart"></div>
+			</div>
+		</div>
+		
+		<div style="display: none;">
+			<input id="sharehref" class="sharehref" type="hidden" value="http://0312birdzhang.oschina.io/huihuisignin"/>
+			<input id="sharehrefTitle" class="sharehref" type="hidden" value="我在用卉卉打卡签到，你也来试试吧" />
+			<input id="sharehrefDes" class="sharehref" type="hidden" value="本周我总共打卡记录了9次，你能超过我吗？" />
+			<img id="pic" src="../images/80x80.png"/>
+			<input id="sharecontent" type="hidden" value="我在用卉卉打卡签到，你也来试试吧"  />
+			<div id="output">
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>

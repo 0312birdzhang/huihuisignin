@@ -313,11 +313,40 @@
 					"js/hammer.min.js",
 					"js/jquery.hammer.min.js",
 					"js/LunarCalendar.min.js",
-					"js/calendar.js"
+					"js/calendar.js",
+					"js/main.js",
+					"js/md5.min.js",
+					"js/array.js"
 				],
 				"refer": [
-					"setting.html"
+					"setting.html",
+					"guide.html",
+					"index-menu.html"
 				],
+				"priority": 0
+			},
+			"index-menu.html": {
+				"resources": [
+					"images/avatar.jpg"
+				],
+				"refer": [
+					"pages/signinList.html",
+					"pages/echarts.html"
+				],
+				"priority": 0
+			},
+			"pages/echarts.html": {
+				"resources": [
+					"css/iconfont.css",
+					"fonts/iconfont.ttf",
+					"libs/echarts-all.js",
+					"js/main.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"images/80x80.png"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
