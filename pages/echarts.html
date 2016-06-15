@@ -136,8 +136,8 @@
 			mui.init({
 				swipeBack:true //启用右滑关闭功能
 			});
-			
-			
+			var lineChart,pieChart;
+			//lineChart.getImage()
 			
 			var callback = {
 				sumWeek: function(x_array,y_array){
@@ -191,7 +191,7 @@
 							data: y_array
 						}],
 					};
-					var lineChart = echarts.init(byId('lineChart'));
+					lineChart = echarts.init(byId('lineChart'));
 					lineChart.setOption(option);
 				},
 				sumFrequence:function(x_arr){
@@ -206,7 +206,7 @@
 							data: x_arr
 						}]
 					};
-					var pieChart = echarts.init(byId('pieChart'));
+					pieChart = echarts.init(byId('pieChart'));
 					pieChart.setOption(option);
 				}
 				
