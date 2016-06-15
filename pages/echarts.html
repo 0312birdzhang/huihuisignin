@@ -10,7 +10,7 @@
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<!--App自定义的css-->
-		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
 		<style>
 			.chart {
 				height: 200px;
@@ -57,7 +57,7 @@
 			// 分享应用
 			var shares={},shareBts=[];
 			function share(){
-				shareBts.length>1?plus.nativeUI.actionSheet({title:'分享卉卉打卡',cancel:'取消',buttons:shareBts},function(e){
+				shareBts.length>1?plus.nativeUI.actionSheet({title:'分享',cancel:'取消',buttons:shareBts},function(e){
 					(e.index>0)&&shareAction(shareBts[e.index-1]);
 				}):(shareBts.length>0?shareWithSystem():plus.nativeUI.alert('当前环境无法支持分享操作!'));
 			}
@@ -67,10 +67,11 @@
 					return;
 				}
 				var msg={};
-				msg.href=bStream?'http://m3w.cn/s/HelloH5?url=about&__streamapp':'http://www.dcloud.io/helloh5/';
-				msg.content='"HelloH5"使用HTML5+技术开发，如果你有流应用引擎还能省流量秒装，快来体验吧';
+				msg.href='http://0312birdzhang.oschina.io/huihuisignin/';
+				msg.content='我正在用卉卉打卡，你也来试试吧';
 				sb.x&&(msg.extra={scene:sb.x});
-				msg.thumbs=msg.pictures=['_www/icon.png'];
+				msg.thumbs=['_www/images/16x16.png'];
+				msg.pictures =['_www/images/80x80.png'];
 				console.log('share '+sb.title+' : '+JSON.stringify(msg));
 				sb.s.authenticated?shareMessage(sb.s,msg):sb.s.authorize(function(){
 					shareMessage(sb.s,msg);
@@ -91,7 +92,7 @@
 				File = plus.android.importClass('java.io.File'),
 				Uri = plus.android.importClass('android.net.Uri');
 				var intent=new Intent(Intent.ACTION_SEND),
-				p=plus.io.convertLocalFileSystemURL('_doc/icon.png'),
+				p=plus.io.convertLocalFileSystemURL("_doc/images/80x80.png"),
 				f=new File(p),
 				uri=Uri.fromFile(f);
 				if(f.exists()&&f.isFile()){
@@ -100,10 +101,11 @@
 				}else{
 					intent.setType('text/plain');
 				}
-				intent.putExtra(Intent.EXTRA_SUBJECT,'HelloH5');
-				intent.putExtra(Intent.EXTRA_TEXT,'"HelloH5"使用HTML5+技术开发，如果你有流应用引擎还能省流量秒装，快来体验吧('+(bStream?'http://m3w.cn/s/HelloH5?__streamapp':'http://www.dcloud.io/streamapp/')+')');
+				console.log("p:"+p)
+				intent.putExtra(Intent.EXTRA_SUBJECT,'卉卉打卡');
+				intent.putExtra(Intent.EXTRA_TEXT,'我正在用卉卉打卡，你也来试试吧');
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				main.startActivity(Intent.createChooser(intent,'分享"HelloH5"应用'));
+				main.startActivity(Intent.createChooser(intent,'分享"卉卉打卡"'));
 			}
 		</script>
 	</head>
@@ -112,7 +114,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">打卡统计</h1>
-			<a class="mui-icon mui-pull-right mui-icon-starhalf" onclick="share();"></a>
+			<a class="mui-icon mui-pull-right iconfont icon-share" onclick="share();"></a>
 		</header>
 		<div class="mui-content">
 			<div class="mui-content-padded">
@@ -138,6 +140,7 @@
 			});
 			var lineChart,pieChart;
 			//lineChart.getImage()
+			//打卡记录数
 			
 			var callback = {
 				sumWeek: function(x_array,y_array){

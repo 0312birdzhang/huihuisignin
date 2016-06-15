@@ -147,6 +147,7 @@
 				initLoad();
 				
 				var lauchFlag = plus.storage.getItem("lauchFlag")
+				console.log("lauchFlag:"+lauchFlag)
 				if(!lauchFlag){
 					plus.webview.open("guide.html")
 				}
