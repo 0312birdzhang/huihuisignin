@@ -25,6 +25,7 @@
 				margin-top: 15px;
 			}
 		</style>
+		<script type="text/javascript" src="../js/html2canvas.js" ></script>
 		<script type="text/javascript">
 		// H5 plus事件处理
 		var shares=null;
@@ -81,7 +82,7 @@
 					}
 					
 					msg.thumbs=["_www/16x16.png"];
-					msg.pictures=["_doc/shareto.png"];
+					msg.pictures=["_doc/shareto.png","_www/80x80.png"];
 				}else{
 					if(pic&&pic.realUrl){
 						msg.pictures=[pic.realUrl];
@@ -120,7 +121,7 @@
 			// 打开分享
 			function shareShow(){
 				// 保存图片
-				saveImgFile("shareto",lineChart.getDataURL("png"));
+				saveImgFile("shareto");
 				var shareBts=[];
 				// 更新分享列表
 				var ss=shares['weixin'];
@@ -161,7 +162,7 @@
 			<h1 class="mui-title">打卡统计</h1>
 			<a class="mui-icon mui-pull-right fa fa-share-alt" onclick="shareShow();"></a>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="to_share_div">
 			<div class="mui-content-padded">
 				<p style="text-indent: 22px;">
 					你的打卡统计数据如下，目前默认统计一周的打卡记录
@@ -281,20 +282,32 @@
 				sumFrequence(callback)
 			})
 			
-			//uid,base64,质量(1-100),回调
-			function saveImgFile(uid,base64){
-				var bitmap = new plus.nativeObj.Bitmap();
-				// 从本地加载Bitmap图片
-				bitmap.loadBase64Data(base64,function(){
-					//	console.log('加载图片成功');
-					bitmap.save( "_doc/"+uid+".png",{overwrite:true},function(i){
-						console.log('保存图片成功：'+JSON.stringify(i));
-						},function(e){
-						console.log('保存图片失败：'+JSON.stringify(e));
-					});
-					},function(e){
-					console.log('加载图片失败：'+JSON.stringify(e));
-				});
+			//保存图片
+			function saveImgFile(uid){
+				html2canvas(document.getElementById("to_share_div"), {
+	                        allowTaint: true,
+	                        taintTest: false,
+	                        onrendered: function(canvas) {
+	                            canvas.id = "mycanvas";
+	                            //document.body.appendChild(canvas);
+	                            //生成base64图片数据
+	                           var dataUrl = canvas.toDataURL();
+								var bitmap = new plus.nativeObj.Bitmap();
+								// 从本地加载Bitmap图片
+								bitmap.loadBase64Data(dataUrl,function(){
+									//	console.log('加载图片成功');
+									bitmap.save( "_doc/"+uid+".png",{overwrite:true},function(i){
+										console.log('保存图片成功：'+JSON.stringify(i));
+										},function(e){
+										console.log('保存图片失败：'+JSON.stringify(e));
+									});
+									},function(e){
+									console.log('加载图片失败：'+JSON.stringify(e));
+								});
+	                           
+	                        }
+	                    });
+				
 			}
 			
 			function clearImgFile(uid){
