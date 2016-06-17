@@ -234,6 +234,7 @@ function sumWeek(callback){
                            tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ? group by startDate;',[before,today],
                            function (tx, results) {
                            	var len = results.rows.length;
+							var share_counts = 0;
 							var y_arr = new Array();
 							var tmp_arr = new Array();
 							for (i = 0; i < len; i++){
@@ -245,6 +246,8 @@ function sumWeek(callback){
 										value:results.rows.item(i).count
 									}
 								);
+								
+								share_counts += results.rows.item(i).count;
 							}
 							
 							
@@ -271,6 +274,7 @@ function sumWeek(callback){
 								y_array.push(y_arr[i].value);
 							}
                            	callback.sumWeek(x_array,y_array);
+							callback.share_counts(share_counts);
                        	  },function (tx, error){
 				        });
           })
