@@ -43,9 +43,7 @@
 		"File": {
 			"description": "访问本地文件系统"
 		},
-		"Gallery": {
-			"description": "访问系统相册"
-		},
+		
 
 		"Invocation": {
 			"description": "使用Native.js能力"

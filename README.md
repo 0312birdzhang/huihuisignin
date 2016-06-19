@@ -15,7 +15,7 @@
 
 - [x] 加入打卡统计
 
-- [ ] 加入分享功能
+- [x] 加入分享功能
 
 - [ ] 重新设计添加打卡内容页面，加入是否需要提醒，加入语音输入
 
@@ -27,6 +27,8 @@
 * <a href="https://github.com/zzyss86/LunarCalendar">小推万年历</a>
 
 * <a href="http://www.dcloud.io/mui.html">Mui框架</a>
+
+* <a href="http://fontawesome.io/icons/">FontAwesome</a>
 
 
 ##下载地址
