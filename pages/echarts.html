@@ -30,6 +30,9 @@
 		// H5 plus事件处理
 		var shares=null;
 		var Intent=null,File=null,Uri=null,main=null;
+		var ws=null;
+		// H5 plus事件处理
+			
 		function plusReady(){
 				updateSerivces();
 				if(plus.os.name=="Android"){
@@ -38,6 +41,7 @@
 					File = plus.android.importClass("java.io.File");
 					Uri = plus.android.importClass("android.net.Uri");
 				}
+				ws=plus.webview.currentWebview();
 			}
 			if(window.plus){
 				plusReady();
@@ -307,6 +311,19 @@
 	                           
 	                        }
 	                    });
+	                   
+	                  /* //官方方式
+	                   var bitmap = new plus.nativeObj.Bitmap();
+	                   ws.draw(bitmap,function(){
+						console.log('截屏绘制图片成功');
+						bitmap.save( "_doc/"+uid+".png",{overwrite:true},function(i){
+										console.log('保存图片成功：'+JSON.stringify(i));
+										},function(e){
+										console.log('保存图片失败：'+JSON.stringify(e));
+									});
+					},function(e){
+						console.log('截屏绘制图片失败：'+JSON.stringify(e));
+					});*/
 				
 			}
 			
