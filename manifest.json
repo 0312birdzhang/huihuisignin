@@ -7,8 +7,8 @@
 	"id": "com.0312birdzhang.huisignin",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "卉卉打卡",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.5",/*应用版本名称*/
-		"code": "84"
+		"name": "1.0.",/*应用版本名称*/
+		"code": "88"
 	},
 	"description": "给卉卉女神写的第二版打卡软件，(* ￣3)(ε￣ *)",/*应用描述信息*/
 	"icons": {
@@ -103,7 +103,7 @@
 						"appsecret": "d63d639b7025b3803607ba6231666a0e",
 						"redirect_uri": "http://api.weibo.com/oauth2/default.html",
 						"description": "可选，新浪微博分享"
-					},"weixin":{"appid":"wxcfbfeebb0ce69f91","appsecret":"23ef45c0727892a6b7e93681a1776e93","description":"可选，微信分享"},"qq":{"appid":"1105360361","description":"QQ分享"}
+					},"weixin":{"appid":"wxcfbfeebb0ce69f91","appsecret":"177adbd12ac0d16ec9758fb0be9acc9d","description":"可选，微信分享"},"qq":{"appid":"1105360361","description":"QQ分享"}
 				}
 			},
 			"apple": {
