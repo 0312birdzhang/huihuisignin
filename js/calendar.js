@@ -128,8 +128,7 @@ var Calendar = (function(){
 	var itemTemp = [
 		'<div class="date_item<%=itemCls%>" data-index="<%=index%>">',
 		'	<span class="date_icon<%=iconCls%>"><%=iconText%></span>',
-		'	<span class="date_day"><%=day%></span>',
-		'   <%=counts%>',
+		'	<span class="date_day"><%=day%><%=counts%></span>',
 		'	<span class="date_lunar<%=fetvCls%>"><%=lunar%></span>',
 		'</div>'
 	];
@@ -246,7 +245,7 @@ var Calendar = (function(){
 				itemCls: '',
 				iconCls: itemData.worktime ? (itemData.worktime==1 ? ' worktime' : ' holiday') : '',
 				iconText: itemData.worktime ? (itemData.worktime==1 ? '班' : '休') : '',
-				counts: '<span id="'+parseDate(itemData.year,itemData.month,itemData.day)+'"></span>',
+				counts: '<sup id="'+parseDate(itemData.year,itemData.month,itemData.day)+'"></sup>',
 				fetvCls: (itemData.lunarFestival || itemData.term) ? ' lunar_fetv' : (itemData.solarFestival ? ' solar_fetv' : ''),
 				lunar: ''
 			};

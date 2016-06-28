@@ -28,7 +28,10 @@
 	        .ui-calendar td a {display:block;}
 	        .ui-calendar-cell-disabled {color:#c0c0c0;}
 	        .ui-calendar-cell-current a{border-radius: 8px 8px 8px 8px; font-weight: bold;margin: 0 auto;background-position:20px -104px;background-repeat: no-repeat;width:28px; height:28px; color:#EA5454;}
-	    
+	    	.mui-badge {  
+                margin-right: -10px;
+                margin-top: -10px;
+            } 
 		</style>
 	</head>
 
@@ -430,7 +433,7 @@
 		   			console.log("counts:"+counts+",date :"+date)
 		   			if(counts && date != undefined ){
 		   				document.getElementById(date).innerText = counts;
-		   				document.getElementById(date).className+=" mui-badge mui-badge-success";
+		   				document.getElementById(date).className+=" mui-badge mui-badge-warning";
 		   			}
 		   			
 		   		}
