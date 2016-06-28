@@ -86,7 +86,7 @@
 					}
 					
 					msg.thumbs=["_www/16x16.png"];
-					msg.pictures=["_doc/shareto.png","_www/80x80.png"];
+					msg.pictures=["_www/80x80.png"];//"_doc/shareto.png", /(ㄒoㄒ)/~~ 是谁举报的诱导分享
 				}else{
 					if(pic&&pic.realUrl){
 						msg.pictures=[pic.realUrl];
@@ -115,17 +115,17 @@
 				s.send( msg, function(){
 					//outLine( "分享到\""+s.description+"\"成功！ " );
 					mui.toast("分享到\""+s.description+"\"成功！ ");
-					clearImgFile("shareto");
+					//clearImgFile("shareto");
 				}, function(e){
 					//outLine( "分享到\""+s.description+"\"失败: "+JSON.stringify(e) );
 					mui.toast("分享到\""+s.description+"\"失败: "+JSON.stringify(e));
-					clearImgFile("shareto");
+					//clearImgFile("shareto");
 				} );
 			}
 			// 打开分享
 			function shareShow(){
 				// 保存图片
-				saveImgFile("shareto");
+				//saveImgFile("shareto");
 				var shareBts=[];
 				// 更新分享列表
 				var ss=shares['weixin'];

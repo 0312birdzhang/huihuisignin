@@ -196,6 +196,12 @@ function parseDate(date){
     return year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day)
 }
 
+function parseMonth(date){
+	var d = new Date(date);
+	var year = d.getFullYear();
+    var mon = d.getMonth()+1;
+    return year+"-"+(mon<10?('0'+mon):mon);
+}
 
 //获取d日期前的n天日期
 function getBeforeDate(d,n){
@@ -321,4 +327,27 @@ var by = function(name){
             throw ("error");
         }
     }
+}
+
+//统计本月打卡数
+function signCounts(thisMonth,callback){
+	var db = getDatabase();
+	var date = new Date();
+	var mon = date.getMonth()+1;
+    db.transaction(function(tx){
+                           tx.executeSql('select startDate,count(1) as count from event where startDate like ?;',[thisMonth+'%'],
+                           function (tx, results) {
+                           	var len = results.rows.length;
+							var x_arr = new Array();
+							for (i = 0; i < len; i++){
+								x_arr.push({
+										name:results.rows.item(i).startDate,
+										value:results.rows.item(i).count
+									});
+								console.log("name:"+results.rows.item(i).startDate+",value:"+results.rows.item(i).count)									
+							}
+                           	callback.signcounts(x_arr);
+                       	  },function (tx, error){
+				        });
+          })
 }

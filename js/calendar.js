@@ -236,7 +236,6 @@ var Calendar = (function(){
 		
 		for(var i=0;i<DATA.monthData.length;i++){
 			var itemData = DATA.monthData[i];
-			itemData.counts = 0;
 			
 			if(i%7==0){ //某行第一列
 				dateHtml+='<div class="date_row">'
@@ -247,7 +246,7 @@ var Calendar = (function(){
 				itemCls: '',
 				iconCls: itemData.worktime ? (itemData.worktime==1 ? ' worktime' : ' holiday') : '',
 				iconText: itemData.worktime ? (itemData.worktime==1 ? '班' : '休') : '',
-				counts: itemData.counts?(itemData.counts >0 ? '<span class="mui-badge mui-badge-success">'+itemData.counts+'</span>':''):'' ,
+				counts: '<span id="'+parseDate(itemData.year,itemData.month,itemData.day)+'"></span>',
 				fetvCls: (itemData.lunarFestival || itemData.term) ? ' lunar_fetv' : (itemData.solarFestival ? ' solar_fetv' : ''),
 				lunar: ''
 			};
@@ -286,6 +285,17 @@ var Calendar = (function(){
 		showInfo();
 	};
 	
+	//处理日期
+	function parseDate(year,month,day){
+		mon = parseInt(month);
+		day = parseInt(day);
+	    return year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day)
+	}
+	
+	function parseMonth(year,month){
+		mon = parseInt(month);
+	    return year+"-"+(mon<10?('0'+mon):mon);
+	}
 	//切换月份，可指定
 	function pageDate(offset,_year,_month,_day){
 		var year,month,day;
@@ -312,6 +322,8 @@ var Calendar = (function(){
 		showDate();
 		
 		slide(offset);
+		
+		
 	};
 	function changePanel(){
 		var first = panel.shift();
@@ -356,10 +368,14 @@ var Calendar = (function(){
 			if(index<DATA.firstDay){ //上一个月
 				setTimeout(function() {
 					pageDate(-1,itemData.year,itemData.month,itemData.day);
+					//添加触发器，o(╯□╰)o，只能这么低端先用着了
+					$('#current_month').html(parseMonth(itemData.year,itemData.month)).trigger('change');
 						}, 150);
+					
 			}else if(index>=DATA.firstDay+DATA.monthDays){//下一个月
 				setTimeout(function() {
 					pageDate(1,itemData.year,itemData.month,itemData.day);
+					$('#current_month').html(parseMonth(itemData.year,itemData.month)).trigger('change');
 						}, 150);
 			}else{
 				resetInfo();
