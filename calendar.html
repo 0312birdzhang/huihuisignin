@@ -28,18 +28,17 @@
 	        .ui-calendar td a {display:block;}
 	        .ui-calendar-cell-disabled {color:#c0c0c0;}
 	        .ui-calendar-cell-current a{border-radius: 8px 8px 8px 8px; font-weight: bold;margin: 0 auto;background-position:20px -104px;background-repeat: no-repeat;width:28px; height:28px; color:#EA5454;}
-	    
+	    	.mui-badge {  
+                margin-right: -10px;
+                margin-top: -10px;
+            } 
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" >
 			<a class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
-			<!--<button id='return_today' class="mui-pull-right mui-btn-link mui-icon mui-icon-home today">回到今天</button>-->
 			<a id="return_today" class="mui-icon mui-icon-undo mui-pull-right today" style="color: #999;"></a>
-	<!--		<button id='return_today' class="mui-pull-right mui-btn-mini mui-icon mui-icon-home mui-right today">
-		            回到今天
-		    </button>-->
 			<h1 class="mui-title">卉卉打卡</h1>
 		</header>
 		<div class="mui-content">
@@ -48,7 +47,7 @@
 				<span id="today_num"></span>&nbsp;
 				<span id="events_day" ></span>
 				<button id="hidden_button" style="display: none;"></button>
-					
+				<span id="current_month" style="display: none;"></span>	
 				</h5>
 				<div class="wrapper" id="wrapper">
 					<div class="date_row date_week">
@@ -121,6 +120,11 @@
 			});
 			mui.plusReady(function() {
 				
+				var lauchFlag = plus.storage.getItem("lauchFlag")
+				if(!lauchFlag){
+					plus.webview.open("guide.html")
+				}
+				
 				//初始化数据库
 				initialize();
 				
@@ -145,9 +149,10 @@
 				}, 200);
 				
 				initLoad();
-				
+				//暂时屏蔽
+				//signCounts(parseMonth(new Date()),eventsCallback);
 				var lauchFlag = plus.storage.getItem("lauchFlag")
-				console.log("lauchFlag:"+lauchFlag)
+				//console.log("lauchFlag:"+lauchFlag)
 				if(!lauchFlag){
 					plus.webview.open("guide.html")
 				}
@@ -283,7 +288,6 @@
 				
 			}
 
-			
 			document.addEventListener('plusready',function(){
 			    checkArguments();
 			    
@@ -316,6 +320,8 @@
 		            	//return_today
 		            	var el = document.getElementById('return_today');
 						mui.trigger(el,'tap');
+						var thisMonth = parseMonth(document.getElementById("today_num").innerText);
+		   				//signCounts(thisMonth,eventsCallback);
 						//回到程序日期增加的情况
 						var back_today = parseDate(new Date());
 						if(back_today != app_init_date){
@@ -335,8 +341,22 @@
 				}else{
 					eventsForDate(getTodayNum(),eventsCallback);
 				}
+				
+				var thisMonth = parseMonth(document.getElementById("today_num").innerText);
+		   		//signCounts(thisMonth,eventsCallback);
 			})
 		   
+		   /**
+		   $("#current_month").on('change',function(){
+		   		var thisMonth = parseMonth(document.getElementById("today_num").innerText);
+		   		signCounts(thisMonth,eventsCallback);
+		   	})
+		   
+		   $("#return_today").on('tap',function(){
+		   		var thisMonth = parseMonth(document.getElementById("today_num").innerText);
+		   		signCounts(thisMonth,eventsCallback);
+		   	})
+		   **/
 		   function getTodayNum(){
 		   		return document.getElementById("today_num").innerText;
 		   }
@@ -410,7 +430,20 @@
 					mui('.mui-content .mui-switch')['switch']();
 					initSwitch()
 					
+		   	},
+		   	//<span class="mui-badge mui-badge-success" id="2016-06-28">1</span>
+		   	signcounts: function(signArray){
+		   		for(var i = 0, l = signArray.length; i < l; i++){
+		   			var date = signArray[i].name;
+		   			var counts = signArray[i].value;
+		   			console.log("counts:"+counts+",date :"+date)
+		   			if(counts && date != undefined ){
+		   				document.getElementById(date).innerText = counts;
+		   				document.getElementById(date).className+=" mui-badge mui-badge-warning";
+		   			}
+		   			
 		   		}
+		   	}
 		   	
 		   }
 		   
@@ -422,6 +455,7 @@
 				loadCombo(eventsCallback);
 				mui('.mui-content .mui-switch')['switch']();
 			}
+		   	
 		   }
 		   
 		</script>

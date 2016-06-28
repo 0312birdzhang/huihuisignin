@@ -52,7 +52,7 @@
 				<p>如果你觉得本软件对你的生活或者工作有一些帮助，请在下载的商店里评价一下，或者推荐给你的亲朋好友。你的支持，
 					是我最大的动力^_^
 				</p>
-				<p style="text-align: center;color: #ccc;text-indent: 0;">当前版本：<span id="version">1.0.6</span></p>	
+				<p style="text-align: center;color: #ccc;text-indent: 0;">当前版本：<span id="version"></span></p>	
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -60,19 +60,26 @@
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			//处理点击事件，需要打开原生浏览器
-			mui('body').on('tap', 'a', function(e) {
-				var href = this.getAttribute('href');
-				if (href) {
-					if (window.plus) {
-						plus.runtime.openURL(href);
-					} else {
-						location.href = href;
+			
+			mui.plusReady(function() {
+				plus.runtime.getProperty( plus.runtime.appid, function ( wgtinfo ) {
+					
+					document.getElementById("version").innerText = wgtinfo.version;
+				} );
+				//处理点击事件，需要打开原生浏览器
+				mui('body').on('tap', 'a', function(e) {
+					var href = this.getAttribute('href');
+					if (href) {
+						if (window.plus) {
+							plus.runtime.openURL(href);
+						} else {
+							location.href = href;
+						}
 					}
-				}
-			});
-
-
+				});
+			})
+			
+				
 		</script>
 	</body>
 
