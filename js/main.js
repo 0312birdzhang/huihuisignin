@@ -330,12 +330,13 @@ var by = function(name){
 }
 
 //统计本月打卡数
-function signCounts(thisMonth,callback){
+function signCounts(startday,endday,callback){
 	var db = getDatabase();
 	var date = new Date();
 	var mon = date.getMonth()+1;
+	console.log("startday:"+startday+",endday:"+endday);
     db.transaction(function(tx){
-                           tx.executeSql('select startDate,count(1) as count from event where startDate like ?;',[thisMonth+'%'],
+                           tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ? group by startDate;',[startday,endday],
                            function (tx, results) {
                            	var len = results.rows.length;
 							var x_arr = new Array();
@@ -344,7 +345,7 @@ function signCounts(thisMonth,callback){
 										name:results.rows.item(i).startDate,
 										value:results.rows.item(i).count
 									});
-								//console.log("name:"+results.rows.item(i).startDate+",value:"+results.rows.item(i).count)									
+								console.log("name:"+results.rows.item(i).startDate+",value:"+results.rows.item(i).count)									
 							}
 							//test
 //							x_arr.push({

@@ -279,6 +279,11 @@ var Calendar = (function(){
 			};
 		};
 		
+		var preData = DATA.monthData[0]
+		var nexData = DATA.monthData[DATA.monthData.length-1]
+		
+		
+		showCounts(parseDate(preData.year,preData.month,preData.day),parseDate(nexData.year,nexData.month,nexData.day));
 		$('#date_list_'+panel[0]).html(dateHtml);
 		
 		showInfo();
@@ -319,7 +324,6 @@ var Calendar = (function(){
 		setCurrentByNow(year,month,day);
 		changePanel();
 		showDate();
-		
 		slide(offset);
 		
 		
@@ -358,6 +362,26 @@ var Calendar = (function(){
 		}
 	};
 	
+	function showCounts(start,end){
+		$.getScript("main.js");
+		var mycallback = {
+			signcounts: function(signArray){
+		   		for(var i = 0, l = signArray.length; i < l; i++){
+		   			var date = signArray[i].name;
+		   			var counts = signArray[i].value;
+		   			console.log("counts:"+counts+",date :"+date)
+		   			if(counts && date != undefined ){
+		   				document.getElementById(date).innerText = counts;
+		   				document.getElementById(date).className+=" mui-badge mui-badge-warning";
+		   			}
+		   			
+		   		}
+		   	}
+		};
+		signCounts(start,end,mycallback);
+		
+	};
+	
 	function addEvent(){ //base hammer.js
 		$('.date_list').hammer().on('tap','.date_item',function(){
 			var index = $(this).attr('data-index');
@@ -368,13 +392,13 @@ var Calendar = (function(){
 				setTimeout(function() {
 					pageDate(-1,itemData.year,itemData.month,itemData.day);
 					//添加触发器，o(╯□╰)o，只能这么低端先用着了
-					$('#current_month').html(parseMonth(itemData.year,itemData.month)).trigger('change');
+					//$('#current_month').html(parseMonth(itemData.year,itemData.month)).trigger('change');
 						}, 150);
 					
 			}else if(index>=DATA.firstDay+DATA.monthDays){//下一个月
 				setTimeout(function() {
 					pageDate(1,itemData.year,itemData.month,itemData.day);
-					$('#current_month').html(parseMonth(itemData.year,itemData.month)).trigger('change');
+					//$('#current_month').html(parseMonth(itemData.year,itemData.month)).trigger('change');
 						}, 150);
 			}else{
 				resetInfo();
