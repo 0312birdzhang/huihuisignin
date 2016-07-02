@@ -369,10 +369,13 @@ var Calendar = (function(){
 		   		for(var i = 0, l = signArray.length; i < l; i++){
 		   			var date = signArray[i].name;
 		   			var counts = signArray[i].value;
-		   			console.log("counts:"+counts+",date :"+date)
-		   			if(counts && date != undefined ){
-		   				document.getElementById(date).innerText = counts;
-		   				document.getElementById(date).className+=" mui-badge mui-badge-warning";
+		   			if(counts && date){
+		   				document.getElementById(date).innerText = counts > 9?"9+":counts;
+		   				document.getElementById(date).className=" mui-badge mui-badge-success";
+		   				//$('#'+date).show();
+		   			}else if(date == parseDate(new Date())){
+		   				document.getElementById(date).innerText = 0;
+		   				document.getElementById(date).className+="";
 		   			}
 		   			
 		   		}
@@ -413,15 +416,20 @@ var Calendar = (function(){
 		});
 		
 		$('.slide_wrap').hammer().on('swipeleft',function(event){
-			pageDate(1);
-			event.preventDefault();
+			setTimeout(function() {
+				pageDate(1);
+				event.preventDefault();
+						}, 150);
+			
 			//event.gesture.preventDefault();
 			return false;
 		});
 		
 		$('.slide_wrap').hammer().on('swiperight',function(event){
-			pageDate(-1);
-			event.preventDefault();
+			setTimeout(function() {
+					pageDate(-1);
+					event.preventDefault();
+				}, 150);
 			//event.gesture.preventDefault();
 			return false;
 		});

@@ -210,6 +210,7 @@ input,input:focus,select:focus {
 	border:1px solid #87c7e2;
 	display:block;
 }
+
 .date_row .date_today{
 	background-color:#b8bdbf;
 	color:#FFF;

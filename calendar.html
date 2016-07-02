@@ -28,9 +28,10 @@
 	        .ui-calendar td a {display:block;}
 	        .ui-calendar-cell-disabled {color:#c0c0c0;}
 	        .ui-calendar-cell-current a{border-radius: 8px 8px 8px 8px; font-weight: bold;margin: 0 auto;background-position:20px -104px;background-repeat: no-repeat;width:28px; height:28px; color:#EA5454;}
-	    	.mui-badge {  
-                margin-right: -10px;
-                margin-top: -10px;
+	    	.mui-badge { 
+	    		width: 14px;
+	    		height: 14px;
+                margin-right: -20px;
             } 
 		</style>
 	</head>
@@ -149,10 +150,7 @@
 				}, 200);
 				
 				initLoad();
-				//暂时屏蔽
-				//signCounts(parseMonth(new Date()),eventsCallback);
 				var lauchFlag = plus.storage.getItem("lauchFlag")
-				//console.log("lauchFlag:"+lauchFlag)
 				if(!lauchFlag){
 					plus.webview.open("guide.html")
 				}
@@ -328,6 +326,9 @@
 							//Calendar.init();
 							window.location.reload();
 							//initLoad()
+							var el = document.getElementById('return_today');
+							mui.trigger(el,'tap');
+							
 						}
 		            }
 		        }
@@ -372,9 +373,13 @@
 					var cname = this.parentNode.querySelector('span').innerText;
 					//开关事件入口
 					if(event.detail.isActive){
-						insertData(cname,parseDate(new Date()),new Date().getTime());					
+						insertData(cname,parseDate(new Date()),new Date().getTime());
+						//重新计算今天的打卡量
+						signCounts(parseDate(new Date()),parseDate(new Date()),eventsCallback);						
 					}else{
 						deleteData(cname,parseDate(new Date()));
+						//重新计算今天的打卡量
+						signCounts(parseDate(new Date()),parseDate(new Date()),eventsCallback);
 					}
 				});
 			});
@@ -432,18 +437,22 @@
 					
 		   	},
 		   	//<span class="mui-badge mui-badge-success" id="2016-06-28">1</span>
-/*		   	signcounts: function(signArray){
+		   	signcounts: function(signArray){
+		   		document.getElementById(parseDate(new Date())).className = " ";
+		   		$("#"+parseDate(new Date())).hide();
 		   		for(var i = 0, l = signArray.length; i < l; i++){
 		   			var date = signArray[i].name;
 		   			var counts = signArray[i].value;
-		   			console.log("counts:"+counts+",date :"+date)
+		   			
 		   			if(counts && date != undefined ){
-		   				document.getElementById(date).innerText = counts;
-		   				document.getElementById(date).className+=" mui-badge mui-badge-warning";
+		   				document.getElementById(date).innerText = counts>9?"9+":counts;
+		   				document.getElementById(date).className+=" mui-badge mui-badge-success";
+		   				$("#"+date).show();
 		   			}
 		   			
+		   			
 		   		}
-		   	}*/
+		   	}
 		   	
 		   }
 		   

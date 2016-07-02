@@ -347,15 +347,10 @@ function signCounts(startday,endday,callback){
 									});
 								console.log("name:"+results.rows.item(i).startDate+",value:"+results.rows.item(i).count)									
 							}
-							//test
-//							x_arr.push({
-//										name:"2016-06-27",
-//										value:2
-//									});
-//							x_arr.push({
-//									name:"2016-06-26",
-//									value:1
-//								});
+							x_arr.push({
+									name:"2016-06-30",
+									value:1
+								});
                            	callback.signcounts(x_arr);
                        	  },function (tx, error){
 				        });
