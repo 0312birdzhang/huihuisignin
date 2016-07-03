@@ -52,10 +52,14 @@ function loadCombo(eventsCallback){
 
 
 function removeCombo(cname){
+	console.log("cname:"+cname)
     var db = getDatabase();
     db.transaction(function(tx){
-                       tx.executeSql('DELETE FROM combo WHERE cname= ?;',[cname],function (tx, results) {
-                       	});
+                       tx.executeSql('DELETE FROM combo WHERE cname= ?;',[cname],
+                       function (tx, results) {
+                       	},function (tx, error){
+				           console.log("error:"+error) 
+				        });
                    })
 }
 

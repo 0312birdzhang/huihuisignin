@@ -10,18 +10,86 @@
 
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/font-awesome.css"/>
+		<style>
+			
+			#middlePopover {
+				margin-top: 30%;
+				width: 98%;
+			}
+			#middlePopover .mui-popover {
+			}
+		</style>
+		<script>
+			var text = null;
+			function startRecognize() {
+				console.log("clicked!");
+			    if(plus.os.name=='Android'&&navigator.userAgent.indexOf('StreamApp')>0){
+			        plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+			        return;
+			    }
+			    var options = {};
+			    options.engine = 'iFly';
+			    text.value = "";
+			    //outSet( "开始语音识别：" );
+			    plus.speech.startRecognize( options, function ( s ) {
+			        //outLine( s );
+			        console.log(s)
+			        text.value += clearString(s.toString());
+			    }, function ( e ) {
+			    	console.log(e)
+			        //outSet( "语音识别失败："+e.message );
+			    } );
+			}
+			
+			function clearString(s){
+				var rs = ""; 
+			    var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&;|{}【】‘；：”“'。，、？]") 
+			    for (var i = 0; i < s.length; i++) { 
+			        rs = rs+s.substr(i, 1).replace(pattern, ''); 
+			    } 
+			    return rs;  
+			}
+		</script>
 	</head>
 
-	<body>
+	<body onload="text=document.getElementById('textarea');">
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">打卡内容管理</h1>
-			<a class=" mui-icon mui-pull-right mui-icon-plus" href="#" id="addbtn"></a>
+			<a class=" mui-icon mui-pull-right mui-icon-plus" href="#middlePopover" id="addbtn"></a>
 		</header>
 		<div class="mui-content">
 			<h5 class="mui-content-padded" style="margin: 15px 10px;text-align: right;">提示：左滑拖拽进行删除</h5>
 			<ul id="combo_list" class="mui-table-view">
 			</ul>
+		</div>
+		<div id="middlePopover" class="mui-popover">
+			<div class="mui-content">
+				<div class="mui-content-padded" style="margin: 5px;">
+					<div class="mui-input-row" style="margin: 10px 5px;">
+							<textarea id="textarea" rows="5" placeholder="输入打卡内容，可语音识别文字"></textarea>
+					</div>
+					<div class="mui-button-row">
+						<a class=" mui-icon fa fa-microphone" onclick="startRecognize()" style="font-size: xx-large;"></a>
+				    </div>
+				    <div class="mui-button-row">
+				        <a class="mui-tab-item">
+				            <span class="mui-tab-label" onclick="startRecognize();">开始语音输入</span>
+				        </a>
+				   </div>
+				   <p></p>
+					<div class="mui-button-row">
+							<button type="button" class="mui-btn mui-btn-primary" onclick="newaddEvent();">保存</button>&nbsp;&nbsp;
+							<!--<button type="button" class="mui-btn mui-btn-danger" onclick="hiddenPop()">取消</button>-->
+					</div>
+					<p></p>
+				</div>
+			</div>
+				
+		</div>
+		<div class="mui-hidden" id="hidden_div">
+			
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/main.js" ></script>
@@ -31,10 +99,14 @@
 			mui.init({
 				swipeBack:true //启用右滑关闭功能
 			});
-			(function($) {
+			mui.plusReady(function() {
+				initLoad();
 				
+				
+			});
+			
+			(function($) {
 				var btnArray = ['确认', '取消'];
-				//第二个demo，向左拖拽后显示操作图标，释放后自动触发的业务逻辑
 				$('#combo_list').on('slideleft', '.mui-table-view-cell', function(event) {
 					var elem = this;
 					mui.confirm('确认删除该条记录？', '提醒', btnArray, function(e) {
@@ -50,43 +122,7 @@
 						}
 					});
 				});
-				
-				document.getElementById("addbtn").addEventListener('tap', function(e) {
-				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
-				var btnArray = ['取消', '确定'];
-				mui.prompt('请输入你要添加的打卡内容：', '', '提示', btnArray, function(e) {
-					if (e.index == 1) {
-						if(!e.value||e.value==""){
-							mui.toast("不允许为空");
-							return false;
-						}
-						var cname = md5(e.value);
-/*						if(isExist(cname)){
-							mui.toast('已存在：'+e.value)
-						}else{
-							var fl = addCombo(md5(e.value),e.value);
-							initLoad();
-						}
-						*/
-						addSignFun(cname,e.value,mycallback);
-						
-//						if(fl){
-//							mui.toast('添加成功');
-//							
-//						}else{
-//							mui.toast('添加失败')
-//						}
-					} else {
-						mui.toast('取消添加');
-					}
-				})
-			});
-			
-			initLoad();
-			
 			})(mui);
-			
-			
 			var mycallback = {
 				initload: function(){
 					initLoad();
@@ -94,8 +130,21 @@
 				alert: function(ctitle){
 					mui.toast('已存在：'+ctitle);
 				}
+				
 			}
 			
+			function newaddEvent(){
+				var text = document.getElementById("textarea");
+				if(!text.value||text.value==""){
+							mui.toast("不允许为空");
+							return false;
+				}
+				var eventVal = text.value;
+				eventVal = clearString(eventVal);
+				var cname = md5(eventVal);
+				addSignFun(cname,eventVal,mycallback);
+				initLoad();
+			}
 			
 			function initLoad(){
 				//查询数据
@@ -117,8 +166,9 @@
 			       document.getElementById("combo_list").innerHTML = htmls;
 				});
 			
-		    })
+			    })
 			}
+			
 		</script>
 	</body>
 

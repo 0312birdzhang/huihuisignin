@@ -219,7 +219,7 @@ input,input:focus,select:focus {
 	color:#FFF;
 }
 .date_row .date_current{
-	background-color:#c82713;
+	background-color:lightsalmon;
 	color:#FFF;
 }
 .date_row .date_current .date_lunar{
