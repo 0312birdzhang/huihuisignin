@@ -14,7 +14,7 @@
 		<style>
 			
 			#middlePopover {
-				margin-top: 30%;
+				margin-top: 26%;
 				width: 98%;
 			}
 			#middlePopover .mui-popover {
@@ -126,9 +126,13 @@
 			var mycallback = {
 				initload: function(){
 					initLoad();
+					mui('.mui-popover').popover('hide');
 				},
 				alert: function(ctitle){
 					mui.toast('已存在：'+ctitle);
+				},
+				success: function(){
+					
 				}
 				
 			}
@@ -143,6 +147,7 @@
 				eventVal = clearString(eventVal);
 				var cname = md5(eventVal);
 				addSignFun(cname,eventVal,mycallback);
+				
 				initLoad();
 			}
 			

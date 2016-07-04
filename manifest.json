@@ -8,7 +8,7 @@
 	"name": "卉卉打卡",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.7",/*应用版本名称*/
-		"code": "88"
+		"code": "90"
 	},
 	"description": "给卉卉女神写的第二版打卡软件，(* ￣3)(ε￣ *)",/*应用描述信息*/
 	"icons": {
@@ -113,12 +113,12 @@
 				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
 				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
 				"frameworks": [],
-				"UIReserveStatusbarOffset":false,/*iOS平台开启沉浸式状态栏样式*/
+				//"UIReserveStatusbarOffset":false,/*iOS平台开启沉浸式状态栏样式*/
 				"urltypes": [
 					{
 						"urlidentifier": "com.birdzhang.huihuisignin",
 						"urlschemes": [
-							"cydia"
+							"dearhui"
 						]
 					}
 				]

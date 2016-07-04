@@ -301,6 +301,7 @@
 			// 处理从后台恢复
 			document.addEventListener('newintent',function(){
 			    checkArguments();
+			    initLoad();
 			},false);
 			
 			
@@ -438,7 +439,7 @@
 		   	},
 		   	//<span class="mui-badge mui-badge-success" id="2016-06-28">1</span>
 		   	signcounts: function(signArray){
-		   		document.getElementById(parseDate(new Date())).className = " ";
+		   		/*document.getElementById(parseDate(new Date())).className = " ";
 		   		$("#"+parseDate(new Date())).hide();
 		   		for(var i = 0, l = signArray.length; i < l; i++){
 		   			var date = signArray[i].name;
@@ -451,7 +452,7 @@
 		   			}
 		   			
 		   			
-		   		}
+		   		}*/
 		   	}
 		   	
 		   }

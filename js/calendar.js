@@ -381,7 +381,7 @@ var Calendar = (function(){
 		   		}
 		   	}
 		};
-		signCounts(start,end,mycallback);
+		//signCounts(start,end,mycallback);
 		
 	};
 	
