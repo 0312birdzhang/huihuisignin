@@ -123,9 +123,9 @@ function eventsForDate(date,eventsCallback){
 		    if(len == 0){
 		    	var p = compareDate(date);
 		    	if(p == "P"){
-		    		htmls = '<li class="mui-table-view-cell">你可能忘记打卡了</li>';
+		    		htmls = '<li class="mui-table-view-cell">'+getRandomTip(pastDay)+'</li>';
 		    	}else if(p == "F"){
-		    		htmls = '<li class="mui-table-view-cell">还没到这一天</li>';
+		    		htmls = '<li class="mui-table-view-cell">'+getRandomTip(futureDay)+'</li>';
 		    	}else{
 		    		//htmls = '<li class="mui-table-view-cell">点击左上角菜单键进入打卡内容管理进行添加</li>';
 		    	}
@@ -368,4 +368,25 @@ function signCounts(startday,endday,callback){
                        	  },function (tx, error){
 				        });
           })
+}
+
+
+
+var futureDay = [
+            "改天再来吧，还没到这一天呢",
+            "要想提前打卡，请装备时空穿梭机",
+            "我在未来等你哦~",
+            "开通SVIP会员即可提前2333天打卡，$_$"
+        ]
+
+var pastDay = [
+            "有时候忘记也是一种幸福",
+            "今天貌似忘记打卡了(⊙o⊙)…",
+            "往者不可谏，来者犹可追，看看今天有没有打卡了吧",
+            "如需补签，请购买点卡充值信仰"
+        ]
+
+function getRandomTip(list){
+	var len = list.length;
+	return list[Math.floor(Math.random() * len + 1)-1]
 }
