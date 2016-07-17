@@ -1,7 +1,63 @@
 {
+  "guide.html": {
+    "href": "guide.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "priority": 0
+  },
+  "pages/signinList.html": {
+    "href": "pages/signinList.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/font-awesome.css",
+      "fonts/fontawesome-webfont.ttf",
+      "js/mui.min.js",
+      "js/main.js",
+      "js/md5.min.js"
+    ],
+    "priority": 1
+  },
+  "pages/echarts.html": {
+    "href": "pages/echarts.html",
+    "resources": [
+      "css/font-awesome.css",
+      "fonts/fontawesome-webfont.ttf",
+      "js/html2canvas.js",
+      "images/16x16.png"
+    ],
+    "priority": 2
+  },
+  "pages/about.html": {
+    "href": "pages/about.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "priority": 3
+  },
+  "index-menu.html": {
+    "href": "index-menu.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "pages/about.html"
+    ],
+    "priority": 1
+  },
   "calendar.html": {
     "href": "calendar.html",
-    "resources": [],
+    "resources": [
+      "images/icon.png",
+      "js/message.js"
+    ],
     "refer": [],
     "priority": 0
   }

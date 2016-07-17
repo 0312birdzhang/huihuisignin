@@ -123,9 +123,9 @@ function eventsForDate(date,eventsCallback){
 		    if(len == 0){
 		    	var p = compareDate(date);
 		    	if(p == "P"){
-		    		htmls = '<li class="mui-table-view-cell">这天你没有打卡</li>';
+		    		htmls = '<li class="mui-table-view-cell">你可能忘记打卡了</li>';
 		    	}else if(p == "F"){
-		    		htmls = '<li class="mui-table-view-cell">还没到这一天呢</li>';
+		    		htmls = '<li class="mui-table-view-cell">还没到这一天</li>';
 		    	}else{
 		    		//htmls = '<li class="mui-table-view-cell">点击左上角菜单键进入打卡内容管理进行添加</li>';
 		    	}
@@ -142,16 +142,25 @@ function eventsForDate(date,eventsCallback){
     //return model;
 }
 
-function hasfeature(date){
+
+
+function checkTodaySign(date){
     var db = getDatabase();
-    var flag = false;
     db.transaction(function(tx){
-                tx.executeSql('SELECT 1 FROM event WHERE startDate = ?;',[date],function (tx, results) {
-                	flag = results.rows.length >0
-                })
-                           
-       			})
-    return flag;
+           tx.executeSql('SELECT * FROM event WHERE startDate =? ;',[date],
+           function (tx, results) {
+           	var len = results.rows.length;
+		    if(len == 0){
+		    	//进行通知
+		    	//后续进行每个打卡内容单独通知
+		    	createLocalPushMsg();
+		    }
+		    
+          },
+          function(tx,error){
+          });
+           
+      });
 }
 
 

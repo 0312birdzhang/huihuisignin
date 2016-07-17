@@ -94,6 +94,7 @@
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/md5.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/array.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/message.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			var menu = null,
 				main = null;
@@ -288,7 +289,30 @@
 
 			document.addEventListener('plusready',function(){
 			    checkArguments();
-			    
+			    // 监听点击消息事件
+				plus.push.addEventListener( "click", function( msg ) {
+					clearAllPush();
+					// 判断是从本地创建还是离线推送的消息
+					switch( msg.payload ) {
+						case "LocalMSG":
+							initLoad();
+						break;
+						default:
+							initLoad();
+						break;
+					}
+					// 提示点击的内容
+					//plus.nativeUI.alert( msg.content );
+					// 处理其它数据
+				}, false );
+				// 监听在线消息事件
+				plus.push.addEventListener( "receive", function( msg ) {
+					if ( msg.aps ) {  // Apple APNS message
+						//outSet( "接收到在线APNS消息：" );
+					} else {
+						//outSet( "接收到在线透传消息：" );
+					}
+				}, false );
 			},false);
 			// 判断启动方式
 			function checkArguments(){
@@ -306,10 +330,15 @@
 			
 			
 			var backgroundTime = 0;
+			var interID;
+			
 	        // 监听从前台切换到后台事件
 		    document.addEventListener("pause",function(){
 		        backgroundTime = Math.round(new Date().getTime()/1000);
+		        interID = setInterval(checkSign,1000*60*60*2);
+		        //interID = setInterval(checkSign,1000*2);
 		    }, false );
+		    
 		    // 监听从后台切换回前台事件
 		    document.addEventListener("resume",function(){
 		        var nowTime = Math.round(new Date().getTime()/1000);
@@ -332,6 +361,9 @@
 							
 						}
 		            }
+		            
+		            //清理掉定时任务
+		            clearInterval(interID);
 		        }
 		    }, false );
 		    
@@ -468,6 +500,18 @@
 		   	
 		   }
 		   
+		   
+		   function checkSign(){
+		   	var checkday = parseDate(new Date());
+		   	var hour = new Date().getHours();
+		   	//指定在规定的时间范围内才提醒
+		   	if(hour < 7 || hour > 23){
+		   		return;
+		   	}
+		   	checkTodaySign(checkday);
+		   	
+		   	
+		   }
 		</script>
 	</body>
 
