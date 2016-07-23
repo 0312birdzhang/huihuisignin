@@ -151,10 +151,6 @@
 				}, 200);
 				
 				initLoad();
-				var lauchFlag = plus.storage.getItem("lauchFlag")
-				if(!lauchFlag){
-					plus.webview.open("guide.html")
-				}
 				
 			});
 			var isInTransition = false;
@@ -505,7 +501,7 @@
 		   	var checkday = parseDate(new Date());
 		   	var hour = new Date().getHours();
 		   	//指定在规定的时间范围内才提醒
-		   	if(hour < 7 || hour > 23){
+		   	if(hour < 19 || hour > 23){
 		   		return;
 		   	}
 		   	checkTodaySign(checkday);

@@ -116,7 +116,9 @@
     "resources": [
       "images/avatar.jpg",
       "css/mui.min.css",
-      "js/mui.min.js"
+      "js/mui.min.js",
+      "images/mianma.jpg",
+      "fonts/mui.ttf"
     ],
     "refer": [
       "pages/signinList.html",
@@ -147,7 +149,9 @@
       "css/mui.min.css",
       "js/mui.min.js"
     ],
-    "refer": [],
+    "refer": [
+      "calendar.html"
+    ],
     "priority": 0
   },
   "pages/signinList.html": {
@@ -170,5 +174,16 @@
     ],
     "refer": [],
     "priority": 0
+  },
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "guide.html",
+      "calendar.html",
+      "index-menu.html"
+    ]
   }
 }

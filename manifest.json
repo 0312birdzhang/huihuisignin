@@ -7,8 +7,8 @@
 	"id": "com.0312birdzhang.huisignin",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "卉卉打卡",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.7",/*应用版本名称*/
-		"code": "90"
+		"name": "1.0.8",/*应用版本名称*/
+		"code": "95"
 	},
 	"description": "给卉卉女神写的第二版打卡软件，(* ￣3)(ε￣ *)",/*应用描述信息*/
 	"icons": {
@@ -83,7 +83,8 @@
 
 		"Share": {},
 		"Device": {},
-		"Speech": {},"Push":{}
+		"Speech": {},
+		"Push": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -95,6 +96,13 @@
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
 			"plugins": {
+				"push": {
+					"igexin": {
+						"appid": "qFTABRLfE18XqsAPNsJ3C3",
+						"appkey": "c9N7oMbCNu9GtfDTlUiIF1",
+						"appsecret": "kAzEfL4M0f7994SaqG1Z0A"
+					}
+				},
 				"oauth": {},
 				"share": {
 					"sina": {
@@ -141,13 +149,17 @@
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
 					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
 					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.GET_TASKS\"/>",
 					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
 					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
 					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
 					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"
 				]
 			},
@@ -355,7 +367,8 @@
 					"images/avatar.jpg",
 					"css/mui.min.css",
 					"fonts/mui.ttf",
-					"js/mui.min.js"
+					"js/mui.min.js",
+					"images/mianma.jpg"
 				],
 				"refer": [
 					"pages/signinList.html",
@@ -389,7 +402,10 @@
 					"fonts/mui.ttf",
 					"js/mui.min.js"
 				],
-				"priority": 0
+				"priority": 0,
+				"refer": [
+					"calendar.html"
+				]
 			},
 			"pages/signinList.html": {
 				"href": "pages/signinList.html",
@@ -402,7 +418,8 @@
 					"js/main.js",
 					"js/md5.min.js"
 				],
-				"priority": 1
+				"priority": 1,
+				"refer": []
 			},
 			"pages/about.html": {
 				"href": "pages/about.html",
@@ -411,7 +428,20 @@
 					"fonts/mui.ttf",
 					"js/mui.min.js"
 				],
-				"priority": 3
+				"priority": 3,
+				"refer": []
+			},
+			"index.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"guide.html",
+					"calendar.html",
+					"index-menu.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -431,6 +461,7 @@
 		"libs/easymob-webim-sdk/quickstart.md",
 		"css/style.min.css",
 		"images/user-photo.png",
-		"images/icon.png"
+		"images/icon.png",
+		"pages/unlock.html"
 	]
 }
