@@ -80,10 +80,14 @@
 			"js/mui.locker.js",
 			"js/app.js",
 			"css/mui.min.css",
-			"css/feedback-page.css"
+			"css/feedback-page.css",
+			"images/iconfont-tianjia.png",
+			"fonts/mui.ttf",
+			"pages/locker-dom.html"
 		],
 		"refer": [
-			"login.html"
+			"login.html",
+			"pages/locker-dom.html"
 		],
 		"priority": 0
 	},
@@ -123,7 +127,8 @@
 		"refer": [
 			"pages/signinList.html",
 			"pages/echarts.html",
-			"pages/about.html"
+			"pages/about.html",
+			"setting.html"
 		]
 	},
 	"pages/echarts.html": {
@@ -162,7 +167,8 @@
 			"js/mui.min.js",
 			"js/main.js",
 			"js/md5.min.js",
-			"fonts/fontawesome-webfont.ttf"
+			"fonts/fontawesome-webfont.ttf",
+			"fonts/mui.ttf"
 		],
 		"refer": [],
 		"priority": 0
@@ -185,6 +191,24 @@
 			"guide.html",
 			"calendar.html",
 			"index-menu.html"
+		]
+	},
+	"pages/feedback.html": {
+		"resources": [
+			"css/feedback.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/feedback.js"
+		]
+	},
+	"pages/locker-dom.html": {
+		"resources": [
+			"css/app.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.locker.js"
 		]
 	}
 }
