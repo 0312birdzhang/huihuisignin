@@ -43,14 +43,14 @@
 				$.init();
 				$.plusReady(function() {
 					var mainPage = $.preload({
-						"id": 'main',
-						"url": 'main.html'
+						"id": 'calendar',
+						"url": '../calendar.html'
 					});
 					var toMain = function() {
 						$.fire(mainPage, 'show', null);
 						setTimeout(function() {
 							$.openWindow({
-								id: 'main',
+								id: 'calendar',
 								show: {
 									aniShow: 'pop-in'
 								},
