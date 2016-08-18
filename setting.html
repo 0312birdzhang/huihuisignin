@@ -195,7 +195,9 @@
 			} else if (mui.os.android) {
 				plus.runtime.openURL("market://details?id=com.birdzhang.huihuisignin", function(e) {
 					plus.runtime.openURL("market://details?id=com.birdzhang.huihuisignin", function(e) {
-						mui.alert("360手机助手和应用宝，你一个都没装，暂时无法评分，感谢支持");
+						plus.runtime.openURL("market://details?id=com.birdzhang.huihuisignin", function(e) {	//
+							mui.alert("360手机助手、应用宝、豌豆荚，你一个都没装，暂时无法评分，感谢支持");
+						},"com.wandoujia.phoenix2");
 					}, "com.qihoo.appstore");
 				}, "com.tencent.android.qqdownloader");
 			}
