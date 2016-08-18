@@ -347,7 +347,7 @@ function signCounts(startday,endday,callback){
 	var db = getDatabase();
 	var date = new Date();
 	var mon = date.getMonth()+1;
-	console.log("startday:"+startday+",endday:"+endday);
+	// console.log("startday:"+startday+",endday:"+endday);
     db.transaction(function(tx){
                            tx.executeSql('select count(1) as count,startDate from event where startDate >= ? and startDate <= ? group by startDate;',[startday,endday],
                            function (tx, results) {
@@ -358,12 +358,12 @@ function signCounts(startday,endday,callback){
 										name:results.rows.item(i).startDate,
 										value:results.rows.item(i).count
 									});
-								console.log("name:"+results.rows.item(i).startDate+",value:"+results.rows.item(i).count)									
+								//console.log("name:"+results.rows.item(i).startDate+",value:"+results.rows.item(i).count)									
 							}
-							x_arr.push({
-									name:"2016-06-30",
-									value:1
-								});
+							// x_arr.push({
+							// 		name:"2016-06-30",
+							// 		value:1
+							// 	});
                            	callback.signcounts(x_arr);
                        	  },function (tx, error){
 				        });
