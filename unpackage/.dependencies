@@ -1,1 +1,17 @@
-{}
+{
+  "pages/feedback.html": {
+    "href": "pages/feedback.html",
+    "resources": [
+      "images/iconfont-tianjia.png"
+    ],
+    "priority": 4
+  },
+  "setting.html": {
+    "href": "setting.html",
+    "resources": [],
+    "refer": [
+      "pages/feedback.html"
+    ],
+    "priority": 4
+  }
+}

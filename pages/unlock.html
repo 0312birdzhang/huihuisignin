@@ -29,7 +29,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-content-padded" style="margin: 10px 0px;">
-				<div class="mui-locker" data-locker-options='{"ringColor":"rgba(221,221,221,1)","fillColor":"#ffffff","pointColor":"rgba(0,136,204,1)","lineColor":"rgba(0,136,204,1)"}' data-locker-width='320' data-locker-height='320'>
+				<div class="mui-locker" data-locker-options='{"ringColor":"rgba(221,221,221,1)","fillColor":"#ffffff","pointColor":"rgba(0,136,204,1)","lineColor":"rgba(0,136,204,1)"}' data-locker-width='80%' data-locker-height='8'>
 				</div>
 			</div>
 			<a id='forget'>忘记手势密码？</a>
@@ -43,14 +43,14 @@
 				$.init();
 				$.plusReady(function() {
 					var mainPage = $.preload({
-						"id": 'calendar',
-						"url": '../calendar.html'
+						"id": 'main',
+						"url": 'main.html'
 					});
 					var toMain = function() {
 						$.fire(mainPage, 'show', null);
 						setTimeout(function() {
 							$.openWindow({
-								id: 'calendar',
+								id: 'main',
 								show: {
 									aniShow: 'pop-in'
 								},

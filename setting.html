@@ -135,7 +135,6 @@
 				display: none;
 			}
 		</style>
-		<link rel="stylesheet" type="text/css" href="./css/feedback-page.css" />
 	</head>
 
 	<body>
@@ -148,46 +147,34 @@
 				</div>
 			</div>
 		</div>
-		<!--页面主结构结束-->
-		<!--单页面开始-->
-		<div id="setting" class="mui-page">
-			<!--页面标题栏开始-->
-			<div class="mui-navbar-inner mui-bar mui-bar-nav">
-				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-					<span class="mui-icon mui-icon-left-nav"></span>
-				</button>
-				<h1 class="mui-center mui-title">设置</h1>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						<a id="rate" class="mui-navigate-right">评分鼓励</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" open-type="common" href="pages/feedback.html">
+							问题反馈
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" open-type="common" href="pages/locker-dom.html">
+							设置锁屏图案
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						使用手势解锁
+						<div id="lockState" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
 			</div>
-			<!--页面标题栏结束-->
-			<!--页面主内容区开始-->
-			<div class="mui-page-content">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view mui-table-view-chevron">
-							<li class="mui-table-view-cell">
-								<a id="rate" class="mui-navigate-right">评分鼓励</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right" open-type="common" href="pages/feedback.html">
-									问题反馈
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right" open-type="common" href="pages/locker-dom.html">
-									设置锁屏图案
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								使用手势解锁
-								<div id="lockState" class="mui-switch">
-									<div class="mui-switch-handle"></div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!--页面主内容区结束-->
 		</div>
 
 
@@ -195,15 +182,9 @@
 	</body>
 	<script src="./js/mui.min.js "></script>
 	<script src="./js/mui.view.js "></script>
-	<script src="./js/feedback.js"></script>
-	<script src="./js/mui.locker.js"></script>
-	<script src="./js/app.js"></script>
 	<script>
 		mui.init();
-		 //初始化单页view
-		var viewApi = mui('#app').view({
-			defaultPage: '#setting'
-		});
+		
 		 //初始化单页的区域滚动
 		mui('.mui-scroll-wrapper').scroll();
 

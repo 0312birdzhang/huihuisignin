@@ -1,214 +1,217 @@
 {
-	"forget_password.html": {
-		"href": "forget_password.html",
-		"resources": [
-			"css/mui.min.css",
-			"css/style.css",
-			"js/mui.min.js",
-			"js/app.js"
-		],
-		"refer": [],
-		"priority": 0
-	},
-	"main.html": {
-		"href": "main.html",
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js",
-			"js/app.js"
-		],
-		"refer": [
-			"setting.html"
-		],
-		"priority": 0
-	},
-	"unlock.html": {
-		"href": "unlock.html",
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js",
-			"js/mui.locker.js",
-			"js/app.js"
-		],
-		"refer": [
-			"login.html",
-			"main.html"
-		],
-		"priority": 0
-	},
-	"reg.html": {
-		"href": "reg.html",
-		"resources": [
-			"css/mui.min.css",
-			"css/style.css",
-			"js/mui.min.js",
-			"js/app.js"
-		],
-		"refer": [
-			"login.html"
-		],
-		"priority": 0
-	},
-	"login.html": {
-		"href": "login.html",
-		"resources": [
-			"css/mui.min.css",
-			"css/style.css",
-			"js/mui.min.js",
-			"js/mui.enterfocus.js",
-			"js/app.js"
-		],
-		"refer": [
-			"forget_password.html",
-			"main.html",
-			"unlock.html",
-			"reg.html"
-		],
-		"priority": 0
-	},
-	"setting.html": {
-		"href": "setting.html",
-		"resources": [
-			"js/mui.min.js",
-			"js/mui.view.js",
-			"libs/easymob-webim-sdk/jquery-1.11.1.js",
-			"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
-			"libs/easymob-webim-sdk/json2.js",
-			"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
-			"js/feedback.js",
-			"js/feedback-page.js",
-			"js/mui.locker.js",
-			"js/app.js",
-			"css/mui.min.css",
-			"css/feedback-page.css",
-			"images/iconfont-tianjia.png",
-			"fonts/mui.ttf",
-			"pages/locker-dom.html"
-		],
-		"refer": [
-			"login.html",
-			"pages/locker-dom.html"
-		],
-		"priority": 0
-	},
-	"calendar.html": {
-		"href": "calendar.html",
-		"resources": [
-			"css/mui.min.css",
-			"css/style.css",
-			"js/mui.min.js",
-			"js/app.js",
-			"js/zepto.min.js",
-			"js/hammer.min.js",
-			"js/jquery.hammer.min.js",
-			"js/LunarCalendar.min.js",
-			"js/calendar.js",
-			"js/main.js",
-			"js/md5.min.js",
-			"fonts/mui.ttf",
-			"js/array.js",
-			"js/message.js"
-		],
-		"refer": [
-			"setting.html",
-			"guide.html",
-			"index-menu.html"
-		],
-		"priority": 0
-	},
-	"index-menu.html": {
-		"resources": [
-			"images/avatar.jpg",
-			"css/mui.min.css",
-			"js/mui.min.js",
-			"images/mianma.jpg",
-			"fonts/mui.ttf"
-		],
-		"refer": [
-			"pages/signinList.html",
-			"pages/echarts.html",
-			"pages/about.html",
-			"setting.html"
-		]
-	},
-	"pages/echarts.html": {
-		"resources": [
-			"css/iconfont.css",
-			"fonts/iconfont.ttf",
-			"libs/echarts-all.js",
-			"js/main.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"images/80x80.png",
-			"css/font-awesome.css",
-			"js/html2canvas.js",
-			"images/16x16.png",
-			"fonts/fontawesome-webfont.ttf"
-		],
-		"refer": []
-	},
-	"guide.html": {
-		"href": "guide.html",
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js"
-		],
-		"refer": [
-			"calendar.html"
-		],
-		"priority": 0
-	},
-	"pages/signinList.html": {
-		"href": "pages/signinList.html",
-		"resources": [
-			"css/mui.min.css",
-			"css/font-awesome.css",
-			"js/mui.min.js",
-			"js/main.js",
-			"js/md5.min.js",
-			"fonts/fontawesome-webfont.ttf",
-			"fonts/mui.ttf"
-		],
-		"refer": [],
-		"priority": 0
-	},
-	"pages/about.html": {
-		"href": "pages/about.html",
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js"
-		],
-		"refer": [],
-		"priority": 0
-	},
-	"index.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css"
-		],
-		"refer": [
-			"guide.html",
-			"calendar.html",
-			"index-menu.html"
-		]
-	},
-	"pages/feedback.html": {
-		"resources": [
-			"css/feedback.css",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/feedback.js"
-		]
-	},
-	"pages/locker-dom.html": {
-		"resources": [
-			"css/app.css",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/mui.locker.js"
-		]
-	}
+  "forget_password.html": {
+    "href": "forget_password.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/app.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main.html": {
+    "href": "main.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/app.js"
+    ],
+    "refer": [
+      "setting.html"
+    ],
+    "priority": 0
+  },
+  "unlock.html": {
+    "href": "unlock.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/mui.locker.js",
+      "js/app.js"
+    ],
+    "refer": [
+      "login.html",
+      "main.html"
+    ],
+    "priority": 0
+  },
+  "reg.html": {
+    "href": "reg.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/app.js"
+    ],
+    "refer": [
+      "login.html"
+    ],
+    "priority": 0
+  },
+  "login.html": {
+    "href": "login.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/mui.enterfocus.js",
+      "js/app.js"
+    ],
+    "refer": [
+      "forget_password.html",
+      "main.html",
+      "unlock.html",
+      "reg.html"
+    ],
+    "priority": 0
+  },
+  "setting.html": {
+    "href": "setting.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/mui.view.js",
+      "libs/easymob-webim-sdk/jquery-1.11.1.js",
+      "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+      "libs/easymob-webim-sdk/json2.js",
+      "libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+      "js/feedback.js",
+      "js/feedback-page.js",
+      "js/mui.locker.js",
+      "js/app.js",
+      "css/mui.min.css",
+      "css/feedback-page.css",
+      "images/iconfont-tianjia.png",
+      "fonts/mui.ttf",
+      "pages/locker-dom.html"
+    ],
+    "refer": [
+      "login.html",
+      "pages/locker-dom.html",
+      "pages/feedback.html"
+    ],
+    "priority": 0
+  },
+  "calendar.html": {
+    "href": "calendar.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/app.js",
+      "js/zepto.min.js",
+      "js/hammer.min.js",
+      "js/jquery.hammer.min.js",
+      "js/LunarCalendar.min.js",
+      "js/calendar.js",
+      "js/main.js",
+      "js/md5.min.js",
+      "fonts/mui.ttf",
+      "js/array.js",
+      "js/message.js"
+    ],
+    "refer": [
+      "setting.html",
+      "guide.html",
+      "index-menu.html"
+    ],
+    "priority": 0
+  },
+  "index-menu.html": {
+    "resources": [
+      "images/avatar.jpg",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "images/mianma.jpg",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "pages/signinList.html",
+      "pages/echarts.html",
+      "pages/about.html",
+      "setting.html"
+    ]
+  },
+  "pages/echarts.html": {
+    "resources": [
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "libs/echarts-all.js",
+      "js/main.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/80x80.png",
+      "css/font-awesome.css",
+      "js/html2canvas.js",
+      "images/16x16.png",
+      "fonts/fontawesome-webfont.ttf"
+    ],
+    "refer": []
+  },
+  "guide.html": {
+    "href": "guide.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "calendar.html"
+    ],
+    "priority": 0
+  },
+  "pages/signinList.html": {
+    "href": "pages/signinList.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/font-awesome.css",
+      "js/mui.min.js",
+      "js/main.js",
+      "js/md5.min.js",
+      "fonts/fontawesome-webfont.ttf",
+      "fonts/mui.ttf"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "pages/about.html": {
+    "href": "pages/about.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "guide.html",
+      "calendar.html",
+      "index-menu.html"
+    ]
+  },
+  "pages/feedback.html": {
+    "resources": [
+      "css/feedback.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/feedback.js"
+    ],
+    "refer": []
+  },
+  "pages/locker-dom.html": {
+    "resources": [
+      "css/app.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/mui.locker.js"
+    ],
+    "refer": []
+  }
 }

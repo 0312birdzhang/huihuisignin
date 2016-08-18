@@ -64,7 +64,9 @@
 		<script src="../js/mui.min.js"></script>
 		<script src=" ../js/feedback.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
 			mui('.mui-scroll-wrapper').scroll();
 		</script>
 	</body>
