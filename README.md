@@ -1,16 +1,16 @@
-#卉卉打卡
+# 卉卉打卡
 
-##介绍
+## 介绍
 卉卉打卡是一款小巧简单的打卡软件，记录你的日常事项有没有做完。制作的初衷是给卉卉女神做一个记录跑步看书等小事的软件。
 	
-采用<a href="http://www.dcloud.io/mui.html">mui</a>框架编写，日历展示用到了
-					<a href="https://github.com/zzyss86/LunarCalendar">小推万年历</a>，图标使用了强大的<a	href="http://fontawesome.io/icons/">fontawesome</a>，语音识别用到了科大讯飞语音识别技术<br />
+采用[mui](http://www.dcloud.io/mui.html) 框架编写，日历展示用到了[小推万年历](https://github.com/zzyss86/LunarCalendar)，
+图标使用了强大的[FontAwesome](http://fontawesome.io/icons/)，语音识别用到了科大讯飞语音识别技术<br />
 					
 
 如果你觉得本软件对你的生活或者工作有一些帮助，请在下载的商店里评价一下，或者推荐给你的亲朋好友。你的支持，是我最大的动力^_^
 
 
-##RoadMap
+## RoadMap
 
 - [x] 加入打卡统计
 
@@ -30,23 +30,25 @@
 
 - [ ] 增加项目的时间，和提醒的时间,完成的时间
 
-##感谢
+- [ ] 日期可以隐藏，只显示当日的日期
 
-* <a href="https://github.com/zzyss86/LunarCalendar">小推万年历</a>
+## 感谢
 
-* <a href="http://www.dcloud.io/mui.html">Mui框架</a>
+* [小推万年历](https://github.com/zzyss86/LunarCalendar)
 
-* <a href="http://fontawesome.io/icons/">FontAwesome</a>
+* [Mui框架](http://www.dcloud.io/mui.html)
+
+* [FontAwesome](http://fontawesome.io/icons/)
 
 
-##下载地址
+## 下载地址
 
 * 安卓
 	http://www.wandoujia.com/apps/com.birdzhang.huihuisignin
-* IOS
+* IOS(证书到期已下架)
 	https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1116482144&mt=8
 	
-##已知bug
+## 已知bug
 
 * 时区不为东八区的情况下不能使用，暂时等待小推万年历更新
 
@@ -54,4 +56,4 @@
 
 * 打开统计badge图标大多数情况不正常显示 Orz
 
-##暂时弃坑
+
