@@ -32,8 +32,14 @@
 	    		width: 14px;
 	    		height: 14px;
                 margin-right: -20px;
-            } 
+            }
+            #toggle-indicator{
+            	width: 40px;
+	    		height: 40px;
+            	content: url(images/down.png);
+            }
 		</style>
+		
 	</head>
 
 	<body>
@@ -50,8 +56,11 @@
 				<button id="hidden_button" style="display: none;"></button>
 				<span id="current_month" style="display: none;"></span>	
 				</h5>
+				<div style="text-align:right;margin-right:20;">
+	                <img alt="展开" id="toggle-indicator"/>
+	            </div>
 				<div class="wrapper" id="wrapper">
-					<div class="date_row date_week">
+					<div class="date_row date_week" id="week_headers">
 				        <div class="date_item">周日</div>
 				        <div class="date_item">周一</div>
 				        <div class="date_item">周二</div>
@@ -61,7 +70,7 @@
 				        <div class="date_item">周六</div>
 				    </div>
 				    
-				    <div class="slide_wrap">
+				    <div class="slide_wrap" id="week_bodys">
 				    	<div class="date_slide"> 
 				            <div class="date_list" id="date_list_0">
 				            </div><!--date_list-->
@@ -95,6 +104,23 @@
 		<script src="js/md5.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/array.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/message.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+         $(document).ready(function(){
+         	$("#week_headers").hide();
+         	$("#week_bodys").hide();
+            $("#toggle-indicator").click(function(){
+                if($("#week_headers").css('display') == 'none'){
+                    //收起图标
+                    $("#toggle-indicator").css("content","url(./images/up.png)");
+                }else{
+                    //展开图标
+                    $("#toggle-indicator").css("content","url(./images/down.png)");
+                }
+                $("#week_headers").toggle();
+                $("#week_bodys").toggle();
+            });
+         });
+        </script>
 		<script>
 			var menu = null,
 				main = null;
